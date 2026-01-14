@@ -1,0 +1,80 @@
+.input-container {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	max-width: 450px;
+	min-height: 55px;
+	padding: 10px;
+	justify-content: space-between;
+	align-items: flex-end;
+
+	border-radius: 10px;
+	border: 1px solid var(--gray);
+	opacity: 0.5;
+	background: var(--transparent);
+	backdrop-filter: blur(37.5px);
+	gap: inherit;
+
+	textarea {
+		width: 100%;
+		resize: none;
+		overflow-y: auto;
+		max-height: 220px;
+		min-height: 35px;
+		line-height: 35px;
+
+		color: var(--text);
+		background: transparent;
+		border: none;
+		outline: none;
+
+		font-family: inherit;
+		font-size: inherit;
+		font-weight: inherit;
+	}
+
+	textarea::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	textarea::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	textarea::-webkit-scrollbar-thumb {
+		background-color: var(--gray);
+		border-radius: 10px;
+	}
+
+	textarea::-webkit-scrollbar-thumb:hover {
+		background-color: var(--color-primary);
+	}
+
+	.btn {
+		width: 10%;
+	}
+
+	&:hover {
+		border: 1px solid var(--color-primary);
+	}
+
+	&:focus-within {
+		border: 1px solid var(--color-primary);
+	}
+}
+
+@media (max-width: 640px) {
+	.input-container {
+		min-height: 44px;
+		padding: 6px 8px;
+		border-radius: 12px;
+
+		.btn {
+			width: 14%;
+		}
+
+		textarea::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
