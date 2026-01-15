@@ -1,0 +1,27 @@
+.backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 999;
+	cursor: pointer;
+}
+
+.menu-container {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 100%);
+	transition: transform 0.25s ease;
+	z-index: 1000;
+
+	width: 100%;
+	max-width: 450px;
+	background: var(--transparent);
+	backdrop-filter: blur(25px);
+	border-radius: 16px 16px 0 0;
+	overflow: hidden;
+
+	&.open {
+		transform: translate(-50%, 0);
+	}
+}
