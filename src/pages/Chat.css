@@ -31,20 +31,81 @@
 		flex-direction: column;
 		justify-content: flex-end;
 		align-items: center;
-		gap: 8px;
-		padding: 51px 19rem;
+		gap: 10px;
+		padding: 20px 100px;
 		background: rgba(36, 33, 33, 0.45);
 
 		backdrop-filter: blur(125px);
 
-		
+		.tags {
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.chat {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+			flex: 1 0 0;
+			align-self: stretch;
+
+			justify-content: center;
+			align-items: center;
+
+			&.welcome {
+				color: var(--text);
+				opacity: 0.8;
+
+				h1,
+				p {
+					width: 100%;
+				}
+			}
+
+			&.conversation {
+				justify-content: flex-start;
+				align-items: flex-start;
+				overflow-y: auto;
+				padding-right: 12px;
+				box-sizing: content-box;
+
+				&::-webkit-scrollbar {
+					width: 2px;
+				}
+
+				&::-webkit-scrollbar-track {
+					background: transparent;
+				}
+
+				&::-webkit-scrollbar-thumb {
+					background-color: var(--gray);
+					border-radius: 10px;
+				}
+
+				&::-webkit-scrollbar-thumb:hover {
+					background-color: var(--color-primary);
+					cursor: pointer;
+				}
+			}
+		}
 	}
 }
 
 @media (max-width: 640px) {
-	.chat-container{
-		.blur{
-			padding:17px;
+	.chat-container {
+		.blur {
+			padding: 17px;
+		}
+	}
+}
+
+@media (min-width: 1024px) {
+	.chat-container {
+		.blur {
+			padding: 20px 250px;
 		}
 	}
 }

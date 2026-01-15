@@ -1,19 +1,21 @@
 import Portal from '../Portal';
 import MenuOption from './MenuOption';
 import './Menu.scss';
+import type { TagOption } from '../../interfaces';
 interface MenuProps {
 	open: boolean;
 	onClose: () => void;
+	currentModel: string;
+	onModelChange: (model: string) => void;
+	option: TagOption[];
 }
 
-const models = [
-	{ id: 'todo', name: 'General', desc: 'Modelo con todo' },
-	{ id: 'pdf', name: 'Pdfs', desc: 'Modelo con todo' },
-	{ id: 'video', name: 'Video', desc: 'Modelo con todo' },
-	{ id: 'codigo', name: 'Codigo', desc: 'Modelo con todo' },
-];
+const Menu = ({ open, onClose, currentModel, onModelChange, option }: MenuProps) => {
+	const handleModelSelect = (modelId: string) => {
+		onModelChange(modelId);
+		onClose();
+	};
 
-const Menu = ({ open, onClose }: MenuProps) => {
 	return (
 		<Portal>
 			{open && (
@@ -23,11 +25,15 @@ const Menu = ({ open, onClose }: MenuProps) => {
 				/>
 			)}
 			<div className={`menu-container ${open ? 'open' : ''}`}>
-				{models.map((model) => (
+				{option.map((model) => (
 					<MenuOption
+						onClick={() => handleModelSelect(model.id)}
+						currentModel={currentModel}
 						key={model.id}
+						id={model.id}
 						title={model.name}
 						desc={model.desc}
+						color={model.title === 'Tema' ? true : false}
 					/>
 				))}
 			</div>
