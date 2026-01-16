@@ -152,65 +152,63 @@ const Chat = () => {
 			<div className='ellipse ellipse-2 ' />
 
 			<div className='blur'>
-				<div className='blur-container'>
-					<div className='tags'>
-						<Tag
-							onOpenMenu={() => setMenuOpen(true)}
-							option={MODELS.find((m) => m.id === currentModel)!}
-						/>
-						<Menu
-							open={menuOpen}
-							onClose={() => setMenuOpen(false)}
-							currentModel={currentModel}
-							onModelChange={setCurrentModel}
-							option={MODELS}
-						/>
+				<div className='tags'>
+					<Tag
+						onOpenMenu={() => setMenuOpen(true)}
+						option={MODELS.find((m) => m.id === currentModel)!}
+					/>
+					<Menu
+						open={menuOpen}
+						onClose={() => setMenuOpen(false)}
+						currentModel={currentModel}
+						onModelChange={setCurrentModel}
+						option={MODELS}
+					/>
 
-						<Tag
-							onOpenMenu={() => setColorOpen(true)}
-							option={COLORS.find((c) => c.id === currentColor)!}
-						/>
-						<Menu
-							open={colorOpen}
-							onClose={() => setColorOpen(false)}
-							currentModel={currentColor}
-							onModelChange={setCurrentColor}
-							option={COLORS}
-						/>
-					</div>
-					{!isConversationStarted ? (
-						<div className='chat welcome'>
-							<h1>Bienvenido Estudiante !</h1>
-							<p className='text-muted-foreground text-base md:text-lg'>
-								Inicia una conversación con tu  <strong>Asistente conversacional FLP</strong> escribiendo tu mensaje.
-							</p>
-						</div>
-					) : (
-						<div
-							className='chat conversation'
-							ref={conversationRef}
-						>
-							{messages.map((message) => (
-								<Message
-									key={message.id}
-									role={message.role}
-									content={message.content}
-									metadata={message.metadata}
-									similitud={message.similitud}
-								/>
-							))}
-
-							{isThinking && <TypingIndicator />}
-						</div>
-					)}
-
-					<InputChat
-						onSendMessage={
-							!isConversationStarted ? handleStartChat : handleSendMessage
-						}
-						placeholder='Pregunta lo que quieras a tu profe de FLP'
+					<Tag
+						onOpenMenu={() => setColorOpen(true)}
+						option={COLORS.find((c) => c.id === currentColor)!}
+					/>
+					<Menu
+						open={colorOpen}
+						onClose={() => setColorOpen(false)}
+						currentModel={currentColor}
+						onModelChange={setCurrentColor}
+						option={COLORS}
 					/>
 				</div>
+				{!isConversationStarted ? (
+					<div className='chat welcome'>
+						<h1>Bienvenido Estudiante !</h1>
+						<p className='text-muted-foreground text-base md:text-lg'>
+							Inicia una conversación con tu{' '}
+							<strong>Asistente conversacional FLP</strong> escribiendo tu
+							mensaje.
+						</p>
+					</div>
+				) : (
+					<div
+						className='chat conversation'
+						ref={conversationRef}
+					>
+						{messages.map((message) => (
+							<Message
+								key={message.id}
+								role={message.role}
+								content={message.content}
+								metadata={message.metadata}
+								similitud={message.similitud}
+							/>
+						))}
+
+						{isThinking && <TypingIndicator />}
+					</div>
+				)}
+
+				<InputChat
+					onSendMessage={!isConversationStarted ? handleStartChat : handleSendMessage}
+					placeholder='Pregunta lo que quieras a tu profe de FLP'
+				/>
 			</div>
 		</div>
 	);
