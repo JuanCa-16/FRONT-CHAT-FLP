@@ -66,8 +66,13 @@
 	}
 
 	.btn {
+		display: flex;
 		max-width: 35px;
 		width: 8%;
+
+		.icon-container{
+			align-self: flex-end;
+		}
 	}
 
 	// &:hover {

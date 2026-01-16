@@ -67,7 +67,7 @@ export default function Message({ role, content, metadata, similitud }: ChatMess
 							allowFullScreen
 							style={{
 								width: '100%',
-								height: '500px',
+								aspectRatio:'16/9',
 								borderRadius: '8px',
 								border: 'none',
 							}}

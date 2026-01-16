@@ -8,6 +8,7 @@ export const MODELS = [
 export const COLORS = [
 	{ id: '#e26821', name: 'Naranja', desc: 'Naranja intenso.', title: 'Tema' },
 	{ id: '#2563eb', name: 'Azul', desc: 'Azul profundo.', title: 'Tema' },
+	{ id: '#eb2c25', name: 'Rojo', desc: 'Rojo Univalle', title: 'Tema' },
 	{ id: '#16a34a', name: 'Verde', desc: 'Verde equilibrado.', title: 'Tema' },
 	{ id: '#7c3aed', name: 'Morado', desc: 'Morado oscuro.', title: 'Tema' },
 	{ id: '#6b7280', name: 'Gris', desc: 'Gris neutro.', title: 'Tema' },
