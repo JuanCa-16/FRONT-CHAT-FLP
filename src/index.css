@@ -21,3 +21,41 @@ body {
 	margin: 0;
 	box-sizing: border-box;
 }
+
+.fondo {
+	display: flex;
+	width: 100%;
+	min-height: 100vh;
+	min-height: 100dvh;
+	height: 100%;
+	overflow: hidden;
+	background: rgba(36, 33, 33, 0.45);
+	backdrop-filter: blur(125px);
+}
+
+.ellipse {
+	width: 216px;
+	height: 216px;
+	border-radius: 9999px;
+	position: absolute;
+	opacity: 0.75;
+	background: var(--color-primary);
+
+	&.ellipse-1 {
+		left: 0;
+		top: 0;
+	}
+
+	&.ellipse-2 {
+		right: 0;
+		bottom: 0;
+	}
+}
+
+.tags {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+}

@@ -14,11 +14,9 @@ const Tag = ({ onOpenMenu, option }: InputChatProps) => {
 			className='tag-container'
 			onClick={onOpenMenu}
 		>
-			{option.title === 'Tema' ? <ThemeIcon /> : <GearIcon />}
+			{title === 'Tema' ? <ThemeIcon /> : <GearIcon />}
 
-			<p>
-				{title} {name}
-			</p>
+			<p>{name}</p>
 		</div>
 	);
 };

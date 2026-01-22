@@ -1,19 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
-import Tag from '../components/Btns/Tag';
+
 import InputChat from '../components/Inputs/InputChat';
 import './Chat.css';
-import Menu from '../components/Menu/Menu';
+
 import type { MessageChat } from '../interfaces';
 import Message from '../components/Inputs/Message';
 import TypingIndicator from '../components/TypingIndicator';
-import { COLORS, MODELS } from '../constants';
+import { COLORS, MODELS, PAGES } from '../constants';
+import TagSelector from '../components/Btns/TagSelector';
+import { useNavigate } from 'react-router-dom';
+import { useAppContext } from '../context/useAppContext';
 
 const Chat = () => {
 	const [messages, setMessages] = useState<MessageChat[]>([]);
 	const [isConversationStarted, setIsConversationStarted] = useState(false);
 	const [currentModel, setCurrentModel] = useState('todo');
 	const [isThinking, setIsThinking] = useState(false);
-	const [menuOpen, setMenuOpen] = useState(false);
+	const navigate = useNavigate();
+	const { currentColor, setCurrentColor, currentPage, setCurrentPage } = useAppContext();
 
 	const urlBack =
 		window.location.hostname === 'localhost'
@@ -136,45 +140,31 @@ const Chat = () => {
 		});
 	}, [messages, isThinking]);
 
-	const [currentColor, setCurrentColor] = useState(() => {
-		return localStorage.getItem('chat-primary-color') ?? '#e26821';
-	});
-	const [colorOpen, setColorOpen] = useState(false);
-
-	useEffect(() => {
-		document.documentElement.style.setProperty('--color-primary', currentColor);
-		localStorage.setItem('chat-primary-color', currentColor);
-	}, [currentColor]);
+	const handlePage = (id: string) => {
+		setCurrentPage(id);
+		navigate(id);
+	};
 
 	return (
 		<div className='chat-container'>
-			<div className='ellipse ellipse-1 ' />
-			<div className='ellipse ellipse-2 ' />
-
-			<div className='blur'>
+			<div className='fondo-chat'>
 				<div className='tags'>
-					<Tag
-						onOpenMenu={() => setMenuOpen(true)}
-						option={MODELS.find((m) => m.id === currentModel)!}
-					/>
-					<Menu
-						open={menuOpen}
-						onClose={() => setMenuOpen(false)}
-						currentModel={currentModel}
-						onModelChange={setCurrentModel}
-						option={MODELS}
+					<TagSelector
+						value={currentModel}
+						options={MODELS}
+						onChange={setCurrentModel}
 					/>
 
-					<Tag
-						onOpenMenu={() => setColorOpen(true)}
-						option={COLORS.find((c) => c.id === currentColor)!}
+					<TagSelector
+						value={currentColor}
+						options={COLORS}
+						onChange={setCurrentColor}
 					/>
-					<Menu
-						open={colorOpen}
-						onClose={() => setColorOpen(false)}
-						currentModel={currentColor}
-						onModelChange={setCurrentColor}
-						option={COLORS}
+
+					<TagSelector
+						value={currentPage}
+						options={PAGES}
+						onChange={handlePage}
 					/>
 				</div>
 				{!isConversationStarted ? (

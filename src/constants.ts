@@ -13,3 +13,8 @@ export const COLORS = [
 	{ id: '#7c3aed', name: 'Morado', desc: 'Morado oscuro.', title: 'Tema' },
 	{ id: '#6b7280', name: 'Gris', desc: 'Gris neutro.', title: 'Tema' },
 ];
+
+export const PAGES = [
+	{ id: '/', name: 'Chat', desc: 'Tu Asistente conversacional FLP.', title: 'Vista' },
+	{ id: '/pdfs', name: 'Pdfs', desc: 'Biblioteca de Pdfs del curso.', title: 'Vista' },
+];
