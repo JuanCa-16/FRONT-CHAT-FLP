@@ -15,6 +15,6 @@ export const COLORS = [
 ];
 
 export const PAGES = [
-	{ id: '/', name: 'Chat', desc: 'Tu Asistente conversacional FLP.', title: 'Vista' },
-	{ id: '/pdfs', name: 'Pdfs', desc: 'Biblioteca de Pdfs del curso.', title: 'Vista' },
+	{ id: '/', name: 'Tus Chats', desc: 'Tu Asistente conversacional FLP.', title: 'Vista' },
+	{ id: '/pdfs', name: 'Tus Pdfs', desc: 'Biblioteca de Pdfs del curso.', title: 'Vista' },
 ];
