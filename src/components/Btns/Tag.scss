@@ -23,7 +23,7 @@
 		content: '';
 		position: absolute;
 		inset: 0;
-		background: #000000af;
+		background: var(--transparentTags);
 		pointer-events: none;
 		z-index: -1;
 	}

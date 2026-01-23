@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Chat from './pages/Chat';
 import Pdfs from './pages/Pdfs';
+import Videos from './pages/Videos';
 
 function App() {
 	return (
@@ -13,6 +14,11 @@ function App() {
 				<Route
 					path='/pdfs'
 					element={<Pdfs />}
+				/>
+
+				<Route
+					path='/videos'
+					element={<Videos />}
 				/>
 
 				<Route
