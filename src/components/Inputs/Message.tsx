@@ -15,6 +15,39 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 	const isUser = role === 'user';
 
 	const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+	const uniqueDocuments = documents?.filter((doc, index, self) => {
+		const { similitud, metadata } = doc;
+		
+		// Solo considerar documentos con similitud >= 0.63
+		if (Number(similitud) < 0.63) return false;
+
+		// Buscar si ya existe un documento con el mismo recurso
+		const isDuplicate = self.findIndex((d, i) => {
+			if (i >= index) return false; // Solo comparar con anteriores
+			
+			const dMetadata = d.metadata;
+			
+			// Comparar por tipo de fuente y recurso específico
+			if (metadata?.FUENTE === 'VIDEO' && dMetadata?.FUENTE === 'VIDEO') {
+				return metadata?.LINK_VIDEO === dMetadata?.LINK_VIDEO;
+			}
+			
+			if (metadata?.FUENTE === 'PDF' && dMetadata?.FUENTE === 'PDF') {
+				return metadata?.NOMBRE_DOCUMENTO === dMetadata?.NOMBRE_DOCUMENTO;
+			}
+			
+			if (metadata?.FUENTE === 'GIT' && dMetadata?.FUENTE === 'GIT') {
+				return metadata?.URL === dMetadata?.URL;
+			}
+			
+			return false;
+		}) !== -1;
+
+		return !isDuplicate;
+	}) ?? [];
+
+	
 	return (
 		<div className={`message-container ${isUser ? '' : 'inverse'}`}>
 			<div className='message'>
@@ -47,7 +80,7 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 					{content}
 				</ReactMarkdown>
 
-				{documents?.map(({ similitud, metadata }) => {
+				{uniqueDocuments?.map(({ similitud, metadata }) => {
 					const rawLink = metadata?.LINK_VIDEO ?? null;
 
 					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
@@ -55,6 +88,8 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 					const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
 
 					const showInfo = Number(similitud) >= 0.63;
+
+					const url = metadata?.URL;
 
 					return (
 						<>
@@ -109,6 +144,21 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 										</a>
 									)}
 								</>
+							)}
+
+							{metadata?.FUENTE == 'GIT' && showInfo && url && (
+								<a
+											href={url}
+											target='_blank'
+											rel='noopener noreferrer'
+											className='pdf-link'
+											style={{
+												color: 'var(--color-primary)',
+												textDecoration: 'none',
+											}}
+										>
+											Ir al GitHub
+										</a>
 							)}
 						</>
 					);

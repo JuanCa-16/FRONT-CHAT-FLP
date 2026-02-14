@@ -23,6 +23,19 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		localStorage.setItem('page', currentPage);
 	}, [currentPage]);
 
+	useEffect(() => {
+		const handleLocationChange = () => {
+			setCurrentPage(window.location.pathname);
+		};
+
+		// Escuchamos el evento de "atrás/adelante"
+		window.addEventListener('popstate', handleLocationChange);
+
+		return () => {
+			window.removeEventListener('popstate', handleLocationChange);
+		};
+	}, []);
+
 	return (
 		<AppContext.Provider
 			value={{

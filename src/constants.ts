@@ -1,8 +1,9 @@
 export const MODELS = [
-	{ id: 'todo', name: 'General 2.0', desc: 'Modelo con todo el conocimiento del curso.', title: 'Modelo' },
-	{ id: 'pdf', name: 'Pdfs 2.0', desc: 'Modelo con los Pdfs del curso.', title: 'Modelo' },
-	{ id: 'video', name: 'Video 2.0', desc: 'Modelo con los videos del docente.', title: 'Modelo' },
-	{ id: 'codigo', name: 'Código 1.0', desc: 'Modelo con ejemplos de código.', title: 'Modelo' },
+	{ id: 'todo', name: 'General 3.0', desc: 'Modelo con todo el conocimiento del curso.', title: 'Modelo' },
+	{ id: 'pdf', name: 'Pdfs 3.0', desc: 'Modelo con los Pdfs del curso.', title: 'Modelo' },
+	{ id: 'video', name: 'Video 3.0', desc: 'Modelo con los videos del docente.', title: 'Modelo' },
+	{ id: 'codigo', name: 'Código 2.0', desc: 'Modelo con ejemplos de código.', title: 'Modelo' },
+	{ id: 'git', name: 'GitHub 1.0', desc: 'Modelo con material de GitHub', title: 'Git' },
 ];
 
 export const COLORS = [

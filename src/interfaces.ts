@@ -5,8 +5,9 @@ export interface Metadata {
 	COMPETENCIA?: string;
 	RESULTADO_APRENDIZAJE?: string;
 	NIVEL_DIFICULTAD?: 'Baja' | 'Media' | 'Alta';
-	FUENTE: 'VIDEO' | 'PDF' | 'CODIGO';
+	FUENTE: 'VIDEO' | 'PDF' | 'CODIGO' | 'GIT';
 	NOMBRE_DOCUMENTO: string;
+	URL?: string;
 }
 
 export interface MessageChat {
