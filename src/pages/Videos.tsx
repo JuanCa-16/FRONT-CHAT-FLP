@@ -28,11 +28,13 @@ export default function Videos() {
 					onChange={handlePage}
 				/>
 			</div>
-			<h2>Videos del curso</h2>
-			<p>
-				Explora todos los videos explicativos del curso, organizados por tema. Aprende a tu
-				ritmo y repasa los conceptos clave con material audiovisual de apoyo.
-			</p>
+			<div className='text'>
+				<h2>Videos del curso</h2>
+				<p>
+					Explora todos los videos explicativos del curso, organizados por tema. Aprende a
+					tu ritmo y repasa los conceptos clave con material audiovisual de apoyo.
+				</p>
+			</div>
 			<div className='grupo-videos'>
 				{Object.entries(DATA).map(([key, value]) => (
 					<div
@@ -56,7 +58,6 @@ export default function Videos() {
 											src={embedUrl}
 											allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
 											allowFullScreen
-											loading='lazy'
 											style={{
 												width: '100%',
 												aspectRatio: '16/9',

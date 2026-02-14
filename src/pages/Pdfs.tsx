@@ -30,11 +30,13 @@ export default function Pdfs() {
 					onChange={handlePage}
 				/>
 			</div>
-			<h2>Documentos PDF del curso</h2>
-			<p>
-				Accede a los documentos PDF de referencia del curso. Encuentra apuntes, guías y
-				materiales organizados por tema para estudiar y complementar tu aprendizaje.
-			</p>
+			<div className='text'>
+				<h2>Documentos PDF del curso</h2>
+				<p>
+					Accede a los documentos PDF de referencia del curso. Encuentra apuntes, guías y
+					materiales organizados por tema para estudiar y complementar tu aprendizaje.
+				</p>
+			</div>
 			<div className='grupo-pdfs'>
 				{Object.entries(DATA).map(([key, value]) => (
 					<div
