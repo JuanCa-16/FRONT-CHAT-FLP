@@ -22,7 +22,7 @@ const Chat = () => {
 	const urlBack =
 		window.location.hostname === 'localhost'
 			? `http://localhost:8000/rag/responder/${currentModel}`
-			: `https://flp-rag-gemini.onrender.com/rag/responder/${currentModel}`;
+			: `https://flp-rag-gemini-1.onrender.com/rag/responder/${currentModel}`;
 
 	const getHistorial = (messages: MessageChat[]) => {
 		return messages
