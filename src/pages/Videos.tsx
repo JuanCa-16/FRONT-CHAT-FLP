@@ -56,6 +56,7 @@ export default function Videos() {
 											key={idx}
 											className='rounded'
 											src={embedUrl}
+											loading='lazy'
 											allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
 											allowFullScreen
 											style={{

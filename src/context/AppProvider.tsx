@@ -10,9 +10,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		return localStorage.getItem('chat-primary-color') ?? '#e26821';
 	});
 
-	const [currentPage, setCurrentPage] = useState<string>(() => {
-		return localStorage.getItem('page') ?? '/';
-	});
+	const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
 
 	useEffect(() => {
 		document.documentElement.style.setProperty('--color-primary', currentColor);
