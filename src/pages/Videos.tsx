@@ -3,6 +3,7 @@ import './Videos.scss';
 import { useAppContext } from '../context/useAppContext';
 import TagSelector from '../components/Btns/TagSelector';
 import { COLORS, DATA, PAGES } from '../constants';
+import { VideoPlayer } from '../components/VideoPlayer';
 
 export default function Videos() {
 	const navigate = useNavigate();
@@ -48,24 +49,26 @@ export default function Videos() {
 							{value?.videos.length > 0 ? (
 								value?.videos.map((video, idx) => {
 									// Extraer el ID del video
-									const videoId = video.split('v=')[1];
-									const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+									//const videoId = video.split('v=')[1];
+									//const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
 									return (
-										<iframe
-											key={idx}
-											className='rounded'
-											src={embedUrl}
-											loading='lazy'
-											allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-											allowFullScreen
-											style={{
-												width: '100%',
-												aspectRatio: '16/9',
-												borderRadius: '8px',
-												border: 'none',
-											}}
-										/>
+
+										// <iframe
+										// 	key={idx}
+										// 	className='rounded'
+										// 	src={embedUrl}
+										// 	loading='lazy'
+										// 	allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+										// 	allowFullScreen
+										// 	style={{
+										// 		width: '100%',
+										// 		aspectRatio: '16/9',
+										// 		borderRadius: '8px',
+										// 		border: 'none',
+										// 	}}
+										// />
+										<VideoPlayer key={idx} videoUrl={video}/>
 									);
 								})
 							) : (
