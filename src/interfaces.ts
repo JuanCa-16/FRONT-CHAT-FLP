@@ -13,15 +13,19 @@ export interface MessageChat {
 	id: string;
 	role: 'user' | 'assistant';
 	content: string;
-	similitud?: string;
-	metadata?: Metadata;
+	documents?: {
+		similitud: string;
+		metadata: Metadata;
+	}[];
 }
 
 export interface ChatMessageProps {
 	role?: 'user' | 'assistant';
 	content?: string;
-	similitud?: string | undefined;
-	metadata?: Metadata | undefined;
+	documents?: {
+		similitud: string;
+		metadata: Metadata;
+	}[];
 }
 
 export interface TagOption {

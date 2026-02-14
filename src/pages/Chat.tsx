@@ -52,7 +52,7 @@ const Chat = () => {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					pregunta: message,
-					top_n: 1,
+					top_n: 2,
 					historial: historial,
 				}),
 			});
@@ -63,8 +63,7 @@ const Chat = () => {
 				id: (Date.now() + 1).toString(),
 				role: 'assistant',
 				content: data.respuesta ?? 'No se recibió respuesta del servidor.',
-				metadata: data.documentos_usados[0].metadata ?? 'Sin metadata.',
-				similitud: data.documentos_usados[0].similitud,
+				documents: data.documentos_usados,
 			};
 
 			setMessages((prev) => [...prev, assistantMessage]);
@@ -99,7 +98,7 @@ const Chat = () => {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					pregunta: message,
-					top_n: 1,
+					top_n: 2,
 					historial: historial,
 				}),
 			});
@@ -110,8 +109,7 @@ const Chat = () => {
 				id: (Date.now() + 1).toString(),
 				role: 'assistant',
 				content: data.respuesta ?? 'No se recibió respuesta del servidor.',
-				metadata: data.documentos_usados[0].metadata ?? 'Sin metadata.',
-				similitud: data.documentos_usados[0].similitud,
+				documents: data.documentos_usados,
 			};
 
 			setMessages((prev) => [...prev, assistantMessage]);
@@ -186,8 +184,7 @@ const Chat = () => {
 								key={message.id}
 								role={message.role}
 								content={message.content}
-								metadata={message.metadata}
-								similitud={message.similitud}
+								documents = {message.documents}
 							/>
 						))}
 

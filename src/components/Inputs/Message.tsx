@@ -11,16 +11,8 @@ interface CodeComponentProps {
 	children?: React.ReactNode;
 }
 
-export default function Message({ role, content, metadata, similitud }: ChatMessageProps) {
+export default function Message({ role, content, documents }: ChatMessageProps) {
 	const isUser = role === 'user';
-
-	const rawLink = metadata?.LINK_VIDEO ?? null;
-
-	const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
-
-	const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
-
-	const showInfo = Number(similitud) >= 0.63;
 
 	const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 	return (
@@ -55,56 +47,72 @@ export default function Message({ role, content, metadata, similitud }: ChatMess
 					{content}
 				</ReactMarkdown>
 
-				{metadata?.FUENTE == 'VIDEO' && showInfo && linkVideo && (
-					<>
-						<p>
-							<br />
-						</p>
-						<iframe
-							className='rounded'
-							src={linkVideo}
-							allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
-							allowFullScreen
-							style={{
-								width: '100%',
-								aspectRatio:'16/9',
-								borderRadius: '8px',
-								border: 'none',
-							}}
-						/>
-					</>
-				)}
+				{documents?.map(({ similitud, metadata }) => {
+					const rawLink = metadata?.LINK_VIDEO ?? null;
 
-				{metadata?.FUENTE == 'PDF' && showInfo && nombrePdf && (
-					<>
-						{!isMobile ? (
-							<>
-								<p>
-									<br />
-								</p>
-								<iframe
-									src={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
-									width='100%'
-									height='600px'
-									style={{ border: 'none' }}
-								/>
-							</>
-						) : (
-							<a
-								href={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
-								target='_blank'
-								rel='noopener noreferrer'
-								className='pdf-link'
-								style={{
-									color: 'var(--color-primary)',
-									textDecoration: 'none',
-								}}
-							>
-								Abrir PDF
-							</a>
-						)}
-					</>
-				)}
+					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
+
+					const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
+
+					const showInfo = Number(similitud) >= 0.63;
+
+					return (
+						<>
+							{metadata?.FUENTE == 'VIDEO' && showInfo && linkVideo && (
+								<>
+									<p>
+										<br />
+									</p>
+									<iframe
+										className='rounded'
+										src={linkVideo}
+										allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture'
+										allowFullScreen
+										style={{
+											width: '100%',
+											aspectRatio: '16/9',
+											borderRadius: '8px',
+											border: 'none',
+										}}
+									/>
+								</>
+							)}
+
+							{metadata?.FUENTE == 'PDF' && showInfo && nombrePdf && (
+								<>
+									{!isMobile ? (
+										<>
+											<p>
+												<br />
+											</p>
+											<iframe
+												src={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
+												width='100%'
+												height='600px'
+												style={{
+													border: 'none',
+												}}
+											/>
+										</>
+									) : (
+										<a
+											href={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
+											target='_blank'
+											rel='noopener noreferrer'
+											className='pdf-link'
+											style={{
+												color: 'var(--color-primary)',
+												textDecoration: 'none',
+											}}
+										>
+											Abrir PDF
+										</a>
+									)}
+								</>
+							)}
+						</>
+					);
+				})}
 			</div>
 		</div>
 	);

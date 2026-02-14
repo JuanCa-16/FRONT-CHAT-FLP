@@ -35,6 +35,15 @@ const InputChat = ({ onSendMessage, placeholder = 'Escribe tu mensaje...' }: Cha
 		}
 	};
 
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+		// Si presiona Enter SIN Shift
+		if (e.key === 'Enter' && !e.shiftKey) {
+			e.preventDefault(); // Previene el salto de línea
+			handleSubmit(e as FormEvent); // Envía el mensaje
+		}
+		// Si presiona Enter CON Shift, permite el salto de línea (comportamiento por defecto)
+	};
+
 	return (
 		<form
 			className='input-container'
@@ -44,6 +53,7 @@ const InputChat = ({ onSendMessage, placeholder = 'Escribe tu mensaje...' }: Cha
 				ref={textareaRef}
 				rows={1}
 				onInput={handleInput}
+				onKeyDown={handleKeyDown}
 				value={message}
 				onChange={(e) => setMessage(e.target.value)}
 				placeholder={placeholder}
