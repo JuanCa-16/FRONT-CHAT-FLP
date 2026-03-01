@@ -1,5 +1,4 @@
 export interface Metadata {
-	LINK_VIDEO?: string;
 	CORTE?: string;
 	TEMATICA?: string;
 	COMPETENCIA?: string;
@@ -10,14 +9,19 @@ export interface Metadata {
 	URL?: string;
 }
 
+export interface documents {
+	id?: number;
+	similitud: string;
+	metadata: Metadata;
+}
+
 export interface MessageChat {
 	id: string;
 	role: 'user' | 'assistant';
 	content: string;
-	documents?: {
-		similitud: string;
-		metadata: Metadata;
-	}[];
+	documents?: documents[];
+	tipo?: 'VIDEO' | 'PDF' | 'CODIGO' | 'GIT' | 'ALL';
+	fecha_mensaje?: string;
 }
 
 export interface ChatMessageProps {

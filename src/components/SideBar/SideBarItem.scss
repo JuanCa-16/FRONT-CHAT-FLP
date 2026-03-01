@@ -1,0 +1,78 @@
+.sidebarItem {
+	display: flex;
+	padding: 6px 6px;
+	align-items: center;
+	gap: 8px;
+	border-radius: 6px;
+	height: 35px;
+	min-height: 35px;
+	position: relative;
+	z-index: 0;
+	transition: transform 0.15s ease;
+	width: 100%;
+	overflow: hidden;
+
+	// &::before {
+	// 	content: '';
+	// 	position: absolute;
+	// 	right:  0;
+	// 	top: 0;
+	// 	bottom: 0;
+	// 	width: 2px; // Grosor de la línea
+	// 	background-color: var(--color-primary);
+	// 	transform: scaleY(0); // Escondida por defecto
+	// 	transition: transform 0.1s ease-in-out;
+	// }
+
+	&:hover,
+	&.active {
+		color: var(--color-primary);
+		background: var(--color-primary);
+
+		&::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: var(--transparentTags);
+			pointer-events: none;
+			z-index: -1;
+		}
+
+		// &::before {
+		// 	transform: scaleY(1); // Se estira de arriba a abajo al estar activo/hover
+		// }
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	.sidebarItem-text {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		min-width: 0;
+		width: 100%;
+	}
+}
+
+.delete-btn {
+	background: transparent;
+	color: var(--color-primary);
+	border: none;
+	cursor: pointer;
+	font-size: 16px;
+	opacity: 0.6;
+}
+
+.delete-btn:hover {
+	opacity: 1;
+}
+
+.sidebarItem-input {
+	width: 100%;
+	background: transparent;
+	border: none;
+	outline: none;
+	color: inherit;
+}

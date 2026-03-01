@@ -29,14 +29,16 @@ export default function Videos() {
 					onChange={handlePage}
 				/>
 			</div>
-			<div className='text'>
-				<h2>Videos del curso</h2>
-				<p>
-					Explora todos los videos explicativos del curso, organizados por tema. Aprende a
-					tu ritmo y repasa los conceptos clave con material audiovisual de apoyo.
-				</p>
-			</div>
+
 			<div className='grupo-videos'>
+				<div className='text'>
+					<h3>Videos del curso</h3>
+					<p>
+						Explora todos los videos explicativos del curso, organizados por tema.
+						Aprende a tu ritmo y repasa los conceptos clave con material audiovisual
+						de apoyo.
+					</p>
+				</div>
 				{Object.entries(DATA).map(([key, value]) => (
 					<div
 						key={key}
@@ -53,7 +55,6 @@ export default function Videos() {
 									//const embedUrl = `https://www.youtube.com/embed/${videoId}`;
 
 									return (
-
 										// <iframe
 										// 	key={idx}
 										// 	className='rounded'
@@ -68,7 +69,10 @@ export default function Videos() {
 										// 		border: 'none',
 										// 	}}
 										// />
-										<VideoPlayer key={idx} videoUrl={video}/>
+										<VideoPlayer
+											key={idx}
+											videoUrl={video}
+										/>
 									);
 								})
 							) : (

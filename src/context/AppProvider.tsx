@@ -12,6 +12,29 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 	const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
 
+	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+		return !!localStorage.getItem('token');
+	});
+
+	const [userName, setUserName] = useState<string | null>(() => {
+		return localStorage.getItem('user_name');
+	});
+
+	const [userHandle, setUserHandle] = useState<string | null>(() => {
+		return localStorage.getItem('user_handle');
+	});
+
+	useEffect(() => {
+		const syncAuth = () => {
+			setIsAuthenticated(!!localStorage.getItem('token'));
+			setUserName(localStorage.getItem('user_name'));
+			setUserHandle(localStorage.getItem('user_handle'));
+		};
+
+		window.addEventListener('storage', syncAuth);
+		return () => window.removeEventListener('storage', syncAuth);
+	}, []);
+
 	useEffect(() => {
 		document.documentElement.style.setProperty('--color-primary', currentColor);
 		localStorage.setItem('chat-primary-color', currentColor);
@@ -34,6 +57,14 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		};
 	}, []);
 
+	const [refreshChats, setRefreshChats] = useState(0);
+
+	const triggerRefresh = () => {
+		setRefreshChats((prev) => prev + 1);
+	};
+
+	const [activeChatId, setActiveChatId] = useState<number | null>(null);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -41,6 +72,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 				setCurrentColor,
 				currentPage,
 				setCurrentPage,
+				isAuthenticated,
+				userName,
+				userHandle,
+				refreshChats,
+				triggerRefresh,
+				activeChatId,
+				setActiveChatId,
 			}}
 		>
 			{children}

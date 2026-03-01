@@ -20,7 +20,7 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 		const { similitud, metadata } = doc;
 		
 		// Solo considerar documentos con similitud >= 0.63
-		if (Number(similitud) < 0.63) return false;
+		if (Number(similitud) < 0.6) return false;
 
 		// Buscar si ya existe un documento con el mismo recurso
 		const isDuplicate = self.findIndex((d, i) => {
@@ -30,7 +30,7 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 			
 			// Comparar por tipo de fuente y recurso específico
 			if (metadata?.FUENTE === 'VIDEO' && dMetadata?.FUENTE === 'VIDEO') {
-				return metadata?.LINK_VIDEO === dMetadata?.LINK_VIDEO;
+				return metadata?.URL === dMetadata?.URL;
 			}
 			
 			if (metadata?.FUENTE === 'PDF' && dMetadata?.FUENTE === 'PDF') {
@@ -81,13 +81,14 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 				</ReactMarkdown>
 
 				{uniqueDocuments?.map(({ similitud, metadata }) => {
-					const rawLink = metadata?.LINK_VIDEO ?? null;
+					const rawLink = metadata?.URL?? null;
 
 					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
 
 					const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
 
-					const showInfo = Number(similitud) >= 0.63;
+					const showInfo = Number(similitud) >= 0.6;
+
 
 					const url = metadata?.URL;
 

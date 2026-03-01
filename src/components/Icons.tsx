@@ -72,4 +72,50 @@ const PdfIcon = () => {
 	);
 };
 
-export { SendIcon, GearIcon, ThemeIcon, PdfIcon };
+const MenuIcon = () => (
+	<svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={2}
+    height={10}
+    fill="none"
+
+  >
+    <path
+      fill="currentColor"
+      d="M0 1C0 .86 0 .791.008.733A.85.85 0 0 1 .733.008C.79 0 .86 0 1 0s.209 0 .267.008a.85.85 0 0 1 .725.725C2 .79 2 .86 2 1s0 .209-.008.267a.85.85 0 0 1-.725.725C1.21 2 1.14 2 1 2s-.209 0-.267-.008a.85.85 0 0 1-.725-.725C0 1.21 0 1.14 0 1Zm0 4c0-.14 0-.209.008-.267a.85.85 0 0 1 .725-.725C.79 4 .86 4 1 4s.209 0 .267.008a.85.85 0 0 1 .725.725C2 4.79 2 4.86 2 5s0 .209-.008.267a.85.85 0 0 1-.725.725C1.21 6 1.14 6 1 6s-.209 0-.267-.008a.85.85 0 0 1-.725-.725C0 5.21 0 5.14 0 5Zm0 4c0-.139 0-.209.008-.267a.85.85 0 0 1 .724-.724c.059-.008.128-.008.267-.008s.21 0 .267.008a.85.85 0 0 1 .724.724c.008.058.008.128.008.267s0 .209-.008.267a.85.85 0 0 1-.724.724c-.058.008-.128.008-.267.008s-.209 0-.267-.008a.85.85 0 0 1-.724-.724C0 9.209 0 9.139 0 9Z"
+    />
+  </svg>
+);
+
+const ExitIcon = () => (
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 14 14'
+		fill='none'
+		className='icon'
+	>
+		<path
+			stroke='currentColor'
+			strokeLinecap='round'
+			strokeLinejoin='round'
+			strokeWidth={1.5}
+			d='M6.715 12.75c-3.294 0-5.965-2.687-5.965-6s2.67-6 5.965-6m3.368 3.333S12.75 6.047 12.75 6.75c0 .703-2.667 2.667-2.667 2.667m2.334-2.667H4.75'
+		/>
+	</svg>
+);
+
+const PlusIcon = () => (
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 13 13'
+		fill='none'
+		className='icon'
+	>
+		<path
+			fill='currentColor'
+			d='M6.5 0A6.508 6.508 0 0 0 0 6.5C0 10.084 2.916 13 6.5 13S13 10.084 13 6.5 10.084 0 6.5 0Zm0 1C9.543 1 12 3.457 12 6.5S9.543 12 6.5 12A5.492 5.492 0 0 1 1 6.5C1 3.457 3.457 1 6.5 1ZM6 3.5V6H3.5v1H6v2.5h1V7h2.5V6H7V3.5H6Z'
+		/>
+	</svg>
+);
+
+export { SendIcon, GearIcon, ThemeIcon, PdfIcon, MenuIcon, ExitIcon, PlusIcon };
