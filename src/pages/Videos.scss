@@ -83,11 +83,9 @@
 				display: grid;
 				width: 100%;
 				grid-template-columns: repeat(auto-fill, minmax(385px, 1fr));
-				gap: 40px 15px; // filas / columnas
+				gap: 50px 50px; // filas / columnas
 				opacity: 0.8;
 				overflow-y: auto;
-				row-gap: 20px;
-				column-gap: 20px;
 			}
 		}
 	}
@@ -106,6 +104,7 @@
 
 				.video {
 					grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+					gap: 25px 50px;
 				}
 			}
 		}

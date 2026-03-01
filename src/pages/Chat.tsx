@@ -23,6 +23,7 @@ const Chat = () => {
 	const [isThinking, setIsThinking] = useState(false);
 
 	const navigate = useNavigate();
+
 	const {
 		currentColor,
 		setCurrentColor,
@@ -219,7 +220,7 @@ const Chat = () => {
 	}, [messages, isThinking]);
 
 	const handlePage = (pageId: string) => {
-		if (pageId === 'chats') {
+		if (pageId === '/chat') {
 			setCurrentPage('/chat');
 			navigate(id ? `/chat/${pageId}` : '/');
 		} else {

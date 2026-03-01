@@ -133,7 +133,18 @@
 		}
 	}
 }
+
 @media (max-width: 768px) {
+	.sidebar-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: rgba(0, 0, 0, 0.702); // Oscurece el fondo
+		z-index: 900; // Debe estar debajo de la sidebar pero encima del contenido
+	}
+
 	.sidebar-container {
 		position: fixed;
 		left: 0;
@@ -143,8 +154,8 @@
 		width: 280px;
 		transform: translateX(0); // Abierto por defecto
 		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 10px 0 15px rgba(0, 0, 0, 0.2);
-		background: black;
+		box-shadow: 10px 0 55px color-mix(in srgb, var(--color-primary) 10%, transparent);
+		background: rgba(0, 0, 0, 0.349);
 		opacity: 1;
 		backdrop-filter: blur(120px);
 

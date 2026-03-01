@@ -12,6 +12,7 @@ import { useAppContext } from '../../context/useAppContext';
 export default function SideBar() {
 	const [chats, setChats] = useState<ChatResponse[]>([]);
 	const [loading, setLoading] = useState(true);
+	const [loadingCreate, setLoadingCreate] = useState(false);
 
 	const { isAuthenticated, refreshChats, setActiveChatId, activeChatId } = useAppContext();
 	useEffect(() => {
@@ -44,7 +45,7 @@ export default function SideBar() {
 	const newChat = async () => {
 		try {
 			const chat = await chatService.newChat('Chat Front');
-
+			setLoadingCreate(true);
 			setChats((chats) => [chat, ...chats]);
 			setActiveChatId(chat.id);
 			navigate(`/chat/${chat.id}`, { replace: true });
@@ -55,6 +56,8 @@ export default function SideBar() {
 			} else {
 				alert('Ocurrió un error inesperado');
 			}
+		} finally {
+			setLoadingCreate(false);
 		}
 	};
 
@@ -107,65 +110,80 @@ export default function SideBar() {
 		}
 	};
 
-	const [open, setOpen] = useState(true);
-	return (
-		<div className={`sidebar-container ${open ? '' : 'closed'}`}>
-			<div className='menuSuperior'>
-				<button
-					className='btn-default icon-div'
-					onClick={() => {
-						setOpen(!open);
-					}}
-				>
-					<MenuIcon />
-				</button>
+	const mobile = window.innerWidth <= 768;
 
-				{isAuthenticated && (
-					<div
-						className='menuInferior'
-						style={{ width: '100%' }}
+	const [open, setOpen] = useState(mobile ? false : true);
+
+	return (
+		<>
+			{open && mobile && (
+				<div
+					className='sidebar-overlay'
+					onClick={() => setOpen(false)}
+				/>
+			)}
+			<div className={`sidebar-container ${open ? '' : 'closed'}`}>
+				<div className='menuSuperior'>
+					<button
+						className='btn-default icon-div'
+						onClick={() => {
+							setOpen(!open);
+						}}
 					>
-						<button
-							className='btn-default'
-							onClick={newChat}
+						<MenuIcon />
+					</button>
+
+					{isAuthenticated && (
+						<div
+							className='menuInferior'
+							style={{ width: '100%' }}
 						>
-							<PlusIcon />
-							<p className='logout-text'>Crear Chat</p>
-						</button>
+							<button
+								className='btn-default'
+								onClick={newChat}
+								disabled={loadingCreate}
+							>
+								<PlusIcon />
+								<p className='logout-text'>Crear Chat</p>
+							</button>
+						</div>
+					)}
+				</div>
+				{isAuthenticated && (
+					<div className='chats'>
+						<p>Tus Chats</p>
+						{loading && <p>Cargando...</p>}
+
+						{!loading &&
+							chats.map((chat) => (
+								<SideBarItem
+									key={chat.id}
+									id={chat.id}
+									txt={chat.titulo}
+									active={chat.id === activeChatId}
+									onClick={() => {
+										if (mobile) {
+											setOpen(false);
+										}
+										setActiveChatId(chat.id);
+										navigate(`/chat/${chat.id}`);
+									}}
+									onDelete={handleDelete}
+									onUpdate={handleUpdate}
+								/>
+							))}
 					</div>
 				)}
-			</div>
-			{isAuthenticated && (
-				<div className='chats'>
-					<p>Tus Chats</p>
-					{loading && <p>Cargando...</p>}
-
-					{!loading &&
-						chats.map((chat) => (
-							<SideBarItem
-								key={chat.id}
-								id={chat.id}
-								txt={chat.titulo}
-								active={chat.id === activeChatId}
-								onClick={() => {
-									setActiveChatId(chat.id);
-									navigate(`/chat/${chat.id}`);
-								}}
-								onDelete={handleDelete}
-								onUpdate={handleUpdate}
-							/>
-						))}
+				<div className='menuInferior'>
+					<button
+						className='btn-default'
+						onClick={authService.logout}
+					>
+						<ExitIcon />
+						<p className='logout-text'>Cerrar Sesión</p>
+					</button>
 				</div>
-			)}
-			<div className='menuInferior'>
-				<button
-					className='btn-default'
-					onClick={authService.logout}
-				>
-					<ExitIcon />
-					<p className='logout-text'>Cerrar Sesión</p>
-				</button>
 			</div>
-		</div>
+		</>
 	);
 }

@@ -34,9 +34,9 @@ export default function Videos() {
 				<div className='text'>
 					<h3>Videos del curso</h3>
 					<p>
-						Explora todos los videos explicativos del curso, organizados por tema.
-						Aprende a tu ritmo y repasa los conceptos clave con material audiovisual
-						de apoyo.
+						Explora los videos del curso que explican cada tema de forma clara.
+						Aprende a tu ritmo, repite lo que necesites y refuerza los conceptos
+						clave con apoyo visual.
 					</p>
 				</div>
 				{Object.entries(DATA).map(([key, value]) => (
@@ -49,7 +49,7 @@ export default function Videos() {
 						</h2>
 						<ul className='video'>
 							{value?.videos.length > 0 ? (
-								value?.videos.map((video, idx) => {
+								value?.videos.map((video) => {
 									// Extraer el ID del video
 									//const videoId = video.split('v=')[1];
 									//const embedUrl = `https://www.youtube.com/embed/${videoId}`;
@@ -70,8 +70,10 @@ export default function Videos() {
 										// 	}}
 										// />
 										<VideoPlayer
-											key={idx}
-											videoUrl={video}
+											key={video.id}
+											videoUrl={video.url}
+											nombre={video.nombre}
+											id={video.id}
 										/>
 									);
 								})

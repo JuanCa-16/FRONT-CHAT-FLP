@@ -2,25 +2,38 @@ import { useState } from 'react';
 import './Login.scss';
 import { authService } from '../services/authService';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+
+interface FormValues {
+	nombre?: string;
+	usuario: string;
+	password: string;
+}
 
 export default function Login() {
 	const [isLogin, setIsLogin] = useState(true);
 	const [loading, setLoading] = useState(false);
-	const [form, setForm] = useState({ usuario: '', password: '', nombre: '' });
 
-	const toggle = (e: React.SyntheticEvent) => {
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+		reset,
+	} = useForm<FormValues>();
+
+	const toggle = (e: React.SyntheticEvent, value: boolean) => {
 		e.preventDefault();
-		setIsLogin(!isLogin);
+		setIsLogin(value);
+		reset();
 	};
 
-	const handleSubmit = async (e: React.FormEvent) => {
-		e.preventDefault();
+	const onSubmit = async (form: FormValues) => {
 		setLoading(true);
 
 		try {
 			const data = isLogin
 				? await authService.login(form.usuario, form.password)
-				: await authService.register(form.nombre, form.usuario, form.password);
+				: await authService.register(form.nombre!, form.usuario, form.password);
 
 			localStorage.setItem('token', data.access_token);
 			localStorage.setItem('user_name', data.nombre);
@@ -54,7 +67,7 @@ export default function Login() {
 			</div>
 			<form
 				className='formulario'
-				onSubmit={handleSubmit}
+				onSubmit={handleSubmit(onSubmit)}
 			>
 				<div className='text'>
 					<h1>{isLogin ? 'Bienvenido de nuevo' : 'Empieza ahora'}</h1>
@@ -68,7 +81,9 @@ export default function Login() {
 					<button
 						type='button'
 						className={`btn-default ${isLogin ? '' : 'off'}`}
-						onClick={toggle}
+						onClick={(e) => {
+							toggle(e, true);
+						}}
 						disabled={loading}
 					>
 						Iniciar Sesión
@@ -76,7 +91,9 @@ export default function Login() {
 					<button
 						type='button'
 						className={`btn-default ${isLogin ? 'off' : ''}`}
-						onClick={toggle}
+						onClick={(e) => {
+							toggle(e, false);
+						}}
 						disabled={loading}
 					>
 						Registrarse
@@ -89,11 +106,21 @@ export default function Login() {
 							<input
 								type='text'
 								placeholder='Nombre'
-								required
-								onChange={(e) =>
-									setForm({ ...form, nombre: e.target.value })
-								}
+								{...register('nombre', {
+									required: 'El nombre es obligatorio',
+									minLength: {
+										value: 2,
+										message: 'Mínimo 2 caracteres',
+									},
+									maxLength: {
+										value: 20,
+										message: 'Máximo 20 caracteres',
+									},
+								})}
 							/>
+							{errors.nombre && (
+								<p className='error'>{errors.nombre.message}</p>
+							)}
 						</div>
 					)}
 					<div className='inputTitle'>
@@ -101,18 +128,36 @@ export default function Login() {
 						<input
 							type='text'
 							placeholder='Usuario'
-							required
-							onChange={(e) => setForm({ ...form, usuario: e.target.value })}
-						></input>
+							{...register('usuario', {
+								required: 'El usuario es obligatorio',
+								minLength: { value: 3, message: 'Mínimo 3 caracteres' },
+								maxLength: {
+									value: 15,
+									message: 'Máximo 15 caracteres',
+								},
+								pattern: {
+									value: /^\S+$/,
+									message: 'No puede contener espacios',
+								},
+							})}
+						/>
+						{errors.usuario && <p className='error'>{errors.usuario.message}</p>}
 					</div>
 					<div className='inputTitle'>
 						<p>Contaseña</p>
 						<input
 							type='password'
 							placeholder='Contraseña'
-							required
-							onChange={(e) => setForm({ ...form, password: e.target.value })}
-						></input>
+							{...register('password', {
+								required: 'La contraseña es obligatoria',
+								minLength: { value: 6, message: 'Mínimo 6 caracteres' },
+								maxLength: {
+									value: 100,
+									message: 'Máximo 100 caracteres',
+								},
+							})}
+						/>
+						{errors.password && <p className='error'>{errors.password.message}</p>}
 					</div>
 				</div>
 				<button

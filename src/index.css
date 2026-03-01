@@ -97,4 +97,8 @@ button.btn-default {
 		cursor: pointer;
 		transform: scale(0.95);
 	}
+
+	&:disabled {
+		opacity: 0.2;
+	}
 }

@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 import { AppContext } from './AppContext';
+import { useLocation } from 'react-router-dom';
 
 interface AppProviderProps {
 	children: React.ReactNode;
 }
 
 export const AppProvider = ({ children }: AppProviderProps) => {
+	const location = useLocation();
+
 	const [currentColor, setCurrentColor] = useState<string>(() => {
 		return localStorage.getItem('chat-primary-color') ?? '#e26821';
 	});
 
-	const [currentPage, setCurrentPage] = useState<string>(window.location.pathname);
+	const [currentPage, setCurrentPage] = useState<string>(
+		location.pathname.startsWith('/chat') ? '/chat' : location.pathname,
+	);
 
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
 		return !!localStorage.getItem('token');
@@ -45,17 +50,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 	}, [currentPage]);
 
 	useEffect(() => {
+		const path = location.pathname;
+
 		const handleLocationChange = () => {
-			setCurrentPage(window.location.pathname);
+			if (path.startsWith('/chat')) {
+				setCurrentPage('/chat');
+			} else {
+				setCurrentPage(path);
+			}
 		};
-
-		// Escuchamos el evento de "atrás/adelante"
-		window.addEventListener('popstate', handleLocationChange);
-
-		return () => {
-			window.removeEventListener('popstate', handleLocationChange);
-		};
-	}, []);
+		handleLocationChange();
+	}, [location.pathname]);
 
 	const [refreshChats, setRefreshChats] = useState(0);
 

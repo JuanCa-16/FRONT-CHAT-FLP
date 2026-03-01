@@ -1,15 +1,13 @@
-import { PdfIcon } from '../components/Icons';
+import { GitIcon } from '../components/Icons';
 import { COLORS, DATA, PAGES } from '../constants';
-import './Pdfs.scss';
+import './Git.scss';
 import TagSelector from '../components/Btns/TagSelector';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/useAppContext';
 import { bibliotecaService, type BibliotecaCreate } from '../services/bibliotecaService';
-export default function Pdfs() {
+
+export default function Git() {
 	const navigate = useNavigate();
-	const abrirPdf = (nombre: string) => {
-		window.open(`/PDFS_DIAPOSITIVAS_CAMPUS/${nombre}.pdf`, '_blank', 'noopener,noreferrer');
-	};
 
 	const { currentColor, setCurrentColor, currentPage, setCurrentPage } = useAppContext();
 
@@ -25,8 +23,9 @@ export default function Pdfs() {
 			console.log(e);
 		}
 	};
+
 	return (
-		<div className='pdfs-container'>
+		<div className='gits-container'>
 			<div className='tags'>
 				<TagSelector
 					value={currentColor}
@@ -39,13 +38,13 @@ export default function Pdfs() {
 					onChange={handlePage}
 				/>
 			</div>
-			<div className='grupo-pdfs'>
+			<div className='grupo-gits'>
 				<div className='text'>
-					<h3>Documentos PDF del curso</h3>
+					<h3>Documentos GIT del curso</h3>
 					<p>
-						Accede a los PDFs del curso con apuntes, guías y recursos por tema.
-						Refuerza tu aprendizaje y profundiza en cada concepto para avanzar en tu
-						dominio del contenido.
+						Consulta los documentos GIT del curso con ejemplos y recursos por tema.
+						Complementa tus estudios y familiarízate con las herramientas esenciales
+						del desarrollo.
 					</p>
 				</div>
 				{Object.entries(DATA).map(([key, value]) => (
@@ -56,28 +55,37 @@ export default function Pdfs() {
 						<h2>
 							{parseInt(key) + 1}. {value.tematica}
 						</h2>
-						<ul className='pdfs'>
-							{value?.pdfs.length > 0 ? (
-								value?.pdfs.map((pdf) => {
+						<ul className='gits'>
+							{value?.git.length > 0 ? (
+								value?.git.map((git) => {
+									const partes = git.nombre.split('_');
+									const nombre =
+										partes.length > 1 ? partes[1] : '';
+
 									return (
 										<div
-											className='pdf'
-											key={pdf.id}
+											className='git'
+											key={git.id}
 											onClick={() => {
-												abrirPdf(pdf.nombre);
+												// Abrir en nueva ventana
+												window.open(
+													git.url,
+													'_blank',
+													'noopener,noreferrer',
+												);
 
 												// Guardar en biblioteca silenciosamente
 												agregarABiblioteca({
-													origen: 'PDF',
+													origen: 'GIT',
 													documento_id:
 														Number(
-															pdf.id,
+															git.id,
 														),
 												});
 											}}
 										>
-											<PdfIcon />
-											<p>{pdf.nombre}</p>
+											<GitIcon />
+											<p>{nombre}</p>
 										</div>
 									);
 								})
