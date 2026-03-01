@@ -4,6 +4,7 @@ import './index.css';
 import App from './App.tsx';
 import { AppProvider } from './context/AppProvider.tsx';
 import { BrowserRouter } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
@@ -12,6 +13,7 @@ createRoot(document.getElementById('root')!).render(
 		<div className='fondo'>
 			<BrowserRouter>
 				<AppProvider>
+					<SpeedInsights />
 					<App />
 				</AppProvider>
 			</BrowserRouter>
