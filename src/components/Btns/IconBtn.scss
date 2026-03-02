@@ -15,15 +15,23 @@
 		transform: scale(0.65);
 	}
 
-	&:hover {
+	@media (hover: hover) and (pointer: fine) {
+		&:hover {
+			cursor: pointer;
+			transform: scale(0.95);
+			.icon {
+				color: var(--color-primary);
+			}
+		}
+	}
+
+	&:active {
 		cursor: pointer;
 		transform: scale(0.95);
 		.icon {
 			color: var(--color-primary);
 		}
 	}
-
-	
 
 	&.off {
 		background-color: rgba(255, 255, 255, 0.264);
@@ -33,7 +41,17 @@
 			opacity: 0.5;
 		}
 
-		&:hover {
+		@media (hover: hover) and (pointer: fine) {
+			&:hover {
+				background-color: var(--color-primary);
+				opacity: 1;
+				.icon {
+					opacity: 1;
+				}
+			}
+		}
+
+		&:active {
 			background-color: var(--color-primary);
 			opacity: 1;
 			.icon {

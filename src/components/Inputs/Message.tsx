@@ -55,8 +55,12 @@ export default function Message({ role, content, documents, calificacion, id }: 
 
 	const [nota, setNota] = useState<number | null>(calificacion ?? null);
 	const [loading, setLoading] = useState(false);
-	const calificar = async (value: number) => {
+	const calificar = async (value: number, e: React.MouseEvent<HTMLButtonElement>) => {
+
+		
 		if (id == null || loading) return;
+
+		 e.currentTarget.blur();
 
 		const previous = nota; 
 
@@ -200,9 +204,10 @@ export default function Message({ role, content, documents, calificacion, id }: 
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
 							onClick={(e) => {
-								if (!loading) calificar(5);
+								if (!loading) calificar(5,e);
 								e.currentTarget.blur(); 
 							}}
+							onTouchEnd={(e) => e.currentTarget.blur()}
 							type="button"
 						>
 							<IconBtn
@@ -214,9 +219,10 @@ export default function Message({ role, content, documents, calificacion, id }: 
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
 							onClick={(e) => {
-								if (!loading) calificar(1);
+								if (!loading) calificar(1,e);
 								e.currentTarget.blur(); 
 							}}
+							onTouchEnd={(e) => e.currentTarget.blur()}
 							type="button"
 						>
 							<IconBtn
