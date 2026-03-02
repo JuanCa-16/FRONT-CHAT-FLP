@@ -56,15 +56,13 @@ export default function Message({ role, content, documents, calificacion, id }: 
 	const [nota, setNota] = useState<number | null>(calificacion ?? null);
 	const [loading, setLoading] = useState(false);
 	const calificar = async (value: number, e: React.MouseEvent<HTMLButtonElement>) => {
-
-		
 		if (id == null || loading) return;
 
-		 e.currentTarget.blur();
+		e.currentTarget.blur();
 
-		const previous = nota; 
+		const previous = nota;
 
-		const next = previous === value ? null : value; 
+		const next = previous === value ? null : value;
 
 		setNota(next);
 
@@ -114,7 +112,9 @@ export default function Message({ role, content, documents, calificacion, id }: 
 				</ReactMarkdown>
 
 				{uniqueDocuments?.map(({ similitud, metadata }) => {
-					const rawLink = metadata?.URL ?? null;
+					const rawLink = metadata?.LINK_VIDEO
+						? metadata?.LINK_VIDEO
+						: (metadata?.URL ?? null);
 
 					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
 
@@ -204,11 +204,11 @@ export default function Message({ role, content, documents, calificacion, id }: 
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
 							onClick={(e) => {
-								if (!loading) calificar(5,e);
-								e.currentTarget.blur(); 
+								if (!loading) calificar(5, e);
+								e.currentTarget.blur();
 							}}
 							onTouchEnd={(e) => e.currentTarget.blur()}
-							type="button"
+							type='button'
 						>
 							<IconBtn
 								className={nota == 5 ? 'on' : 'off'}
@@ -219,11 +219,11 @@ export default function Message({ role, content, documents, calificacion, id }: 
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
 							onClick={(e) => {
-								if (!loading) calificar(1,e);
-								e.currentTarget.blur(); 
+								if (!loading) calificar(1, e);
+								e.currentTarget.blur();
 							}}
 							onTouchEnd={(e) => e.currentTarget.blur()}
-							type="button"
+							type='button'
 						>
 							<IconBtn
 								className={nota == 1 ? 'on' : 'off'}

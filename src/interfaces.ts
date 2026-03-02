@@ -7,6 +7,7 @@ export interface Metadata {
 	FUENTE: 'VIDEO' | 'PDF' | 'CODIGO' | 'GIT';
 	NOMBRE_DOCUMENTO: string;
 	URL?: string;
+	LINK_VIDEO?: string;
 }
 
 export interface documents {
