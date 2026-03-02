@@ -162,4 +162,48 @@ const ChatIcon = () => (
 	</svg>
 );
 
-export { SendIcon, GearIcon, ThemeIcon, PdfIcon, MenuIcon, ExitIcon, PlusIcon, YoutubeIcon, GitIcon, ChatIcon };
+const ThumbsUpIcon = () => (
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 9 9'
+		className='icon'
+	>
+		<path
+			fill='currentColor'
+			fillRule='evenodd'
+			d='M6.015 3.342h1.983c.161 0 .32.04.462.116.143.076.267.187.359.323a1.055 1.055 0 0 1 .121.941l-1.18 3.6C7.616 8.73 7.52 9 6.818 9c-1.036 0-2.138-.338-3.079-.628-.236-.072-.462-.142-.674-.202h-.057V3.239A12.75 12.75 0 0 0 5.127.482a.9.9 0 0 1 .45-.415.87.87 0 0 1 .605-.024.895.895 0 0 1 .48.379c.113.18.16.394.135.605l-.782 2.315ZM.59 3.5H2v4a1 1 0 0 1-2 0V4.089C0 3.764.264 3.5.589 3.5Z'
+			clipRule='evenodd'
+		/>
+	</svg>
+);
+
+const ThumbsDownIcon = () => (
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 9 9'
+		fill='none'
+		className='icon'
+	>
+		<path
+			fill='currentColor'
+			fillRule='evenodd'
+			d='M2.985 5.658H1.002a1 1 0 0 1-.82-.438 1.05 1.05 0 0 1-.121-.942l1.18-3.6C1.384.27 1.48 0 2.182 0 3.219 0 4.32.339 5.26.628c.236.072.462.142.675.202h.057v4.931a12.75 12.75 0 0 0-2.12 2.757.9.9 0 0 1-.45.415.87.87 0 0 1-.605.024.9.9 0 0 1-.48-.379.935.935 0 0 1-.134-.605l.78-2.315h.001ZM8.411 5.5h-1.41v-4A1 1 0 1 1 9 1.5v3.411a.589.589 0 0 1-.589.589Z'
+			clipRule='evenodd'
+		/>
+	</svg>
+);
+
+export {
+	SendIcon,
+	GearIcon,
+	ThemeIcon,
+	PdfIcon,
+	MenuIcon,
+	ExitIcon,
+	PlusIcon,
+	YoutubeIcon,
+	GitIcon,
+	ChatIcon,
+	ThumbsUpIcon,
+	ThumbsDownIcon
+};

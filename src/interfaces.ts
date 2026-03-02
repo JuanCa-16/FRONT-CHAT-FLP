@@ -22,6 +22,7 @@ export interface MessageChat {
 	documents?: documents[];
 	tipo?: 'VIDEO' | 'PDF' | 'CODIGO' | 'GIT' | 'ALL';
 	fecha_mensaje?: string;
+	calificacion?: number;
 }
 
 export interface ChatMessageProps {
@@ -31,6 +32,8 @@ export interface ChatMessageProps {
 		similitud: string;
 		metadata: Metadata;
 	}[];
+	id?: number;
+	calificacion?: number;
 }
 
 export interface TagOption {

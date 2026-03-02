@@ -229,7 +229,6 @@ const Chat = () => {
 		}
 	};
 
-	console.log('EMEZP', isConversationStarted, 'cargando', isLoading);
 	return (
 		<div className='chat-container'>
 			<div className='fondo-chat'>
@@ -280,9 +279,11 @@ const Chat = () => {
 							messages.map((message) => (
 								<Message
 									key={message.id}
+									id={Number(message.id)}
 									role={message.role}
 									content={message.content}
 									documents={message.documents}
+									calificacion={message.calificacion}
 								/>
 							))}
 						{isThinking && <TypingIndicator />}

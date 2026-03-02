@@ -8,9 +8,23 @@ export interface HistorialChatResponse {
 	historial: MessageChat[];
 }
 
+export interface CalificarResponse {
+	mensaje_id: number;
+	calificacion: number | null;
+}
+
 export const MessageService = {
 	getHistorial: async (chatId: number): Promise<HistorialChatResponse> => {
 		const { data } = await api.get(`/mensaje/chat/${chatId}/historial`);
+		return data;
+	},
+	calificar: async (
+		mensajeId: number,
+		body: {
+			calificacion: number | null;
+		},
+	): Promise<CalificarResponse> => {
+		const { data } = await api.put(`/mensaje/respuesta/${mensajeId}/calificar`, body);
 		return data;
 	},
 };

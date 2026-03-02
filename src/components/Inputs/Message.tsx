@@ -4,6 +4,10 @@ import { cb } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './Message.scss';
 import type { ChatMessageProps } from '../../interfaces';
 import remarkBreaks from 'remark-breaks';
+import IconBtn from '../Btns/IconBtn';
+import { ThumbsDownIcon, ThumbsUpIcon } from '../Icons';
+import { MessageService } from '../../services/messageService';
+import { useState } from 'react';
 interface CodeComponentProps {
 	node?: unknown;
 	inline?: boolean;
@@ -11,43 +15,68 @@ interface CodeComponentProps {
 	children?: React.ReactNode;
 }
 
-export default function Message({ role, content, documents }: ChatMessageProps) {
+export default function Message({ role, content, documents, calificacion, id }: ChatMessageProps) {
 	const isUser = role === 'user';
 
 	const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-	const uniqueDocuments = documents?.filter((doc, index, self) => {
-		const { similitud, metadata } = doc;
-		
-		// Solo considerar documentos con similitud >= 0.63
-		if (Number(similitud) < 0.6) return false;
+	const uniqueDocuments =
+		documents?.filter((doc, index, self) => {
+			const { similitud, metadata } = doc;
 
-		// Buscar si ya existe un documento con el mismo recurso
-		const isDuplicate = self.findIndex((d, i) => {
-			if (i >= index) return false; // Solo comparar con anteriores
-			
-			const dMetadata = d.metadata;
-			
-			// Comparar por tipo de fuente y recurso específico
-			if (metadata?.FUENTE === 'VIDEO' && dMetadata?.FUENTE === 'VIDEO') {
-				return metadata?.URL === dMetadata?.URL;
-			}
-			
-			if (metadata?.FUENTE === 'PDF' && dMetadata?.FUENTE === 'PDF') {
-				return metadata?.NOMBRE_DOCUMENTO === dMetadata?.NOMBRE_DOCUMENTO;
-			}
-			
-			if (metadata?.FUENTE === 'GIT' && dMetadata?.FUENTE === 'GIT') {
-				return metadata?.URL === dMetadata?.URL;
-			}
-			
-			return false;
-		}) !== -1;
+			// Solo considerar documentos con similitud >= 0.63
+			if (Number(similitud) < 0.6) return false;
 
-		return !isDuplicate;
-	}) ?? [];
+			// Buscar si ya existe un documento con el mismo recurso
+			const isDuplicate =
+				self.findIndex((d, i) => {
+					if (i >= index) return false; // Solo comparar con anteriores
 
-	
+					const dMetadata = d.metadata;
+
+					// Comparar por tipo de fuente y recurso específico
+					if (metadata?.FUENTE === 'VIDEO' && dMetadata?.FUENTE === 'VIDEO') {
+						return metadata?.URL === dMetadata?.URL;
+					}
+
+					if (metadata?.FUENTE === 'PDF' && dMetadata?.FUENTE === 'PDF') {
+						return metadata?.NOMBRE_DOCUMENTO === dMetadata?.NOMBRE_DOCUMENTO;
+					}
+
+					if (metadata?.FUENTE === 'GIT' && dMetadata?.FUENTE === 'GIT') {
+						return metadata?.URL === dMetadata?.URL;
+					}
+
+					return false;
+				}) !== -1;
+
+			return !isDuplicate;
+		}) ?? [];
+
+	const [nota, setNota] = useState<number | null>(calificacion ?? null);
+	const [loading, setLoading] = useState(false);
+	const calificar = async (value: number) => {
+		if (id == null || loading) return;
+
+		const previous = nota; 
+
+		const next = previous === value ? null : value; 
+
+		setNota(next);
+
+		try {
+			setLoading(true);
+			const data = await MessageService.calificar(id, { calificacion: value });
+
+			setNota(data.calificacion);
+		} catch (error) {
+			console.error(error);
+			setNota(previous);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	return (
 		<div className={`message-container ${isUser ? '' : 'inverse'}`}>
 			<div className='message'>
@@ -81,14 +110,13 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 				</ReactMarkdown>
 
 				{uniqueDocuments?.map(({ similitud, metadata }) => {
-					const rawLink = metadata?.URL?? null;
+					const rawLink = metadata?.URL ?? null;
 
 					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
 
 					const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
 
 					const showInfo = Number(similitud) >= 0.6;
-
 
 					const url = metadata?.URL;
 
@@ -149,21 +177,53 @@ export default function Message({ role, content, documents }: ChatMessageProps) 
 
 							{metadata?.FUENTE == 'GIT' && showInfo && url && (
 								<a
-											href={url}
-											target='_blank'
-											rel='noopener noreferrer'
-											className='pdf-link'
-											style={{
-												color: 'var(--color-primary)',
-												textDecoration: 'none',
-											}}
-										>
-											Ir al GitHub
-										</a>
+									href={url}
+									target='_blank'
+									rel='noopener noreferrer'
+									className='pdf-link'
+									style={{
+										color: 'var(--color-primary)',
+										textDecoration: 'none',
+									}}
+								>
+									Ir al GitHub
+								</a>
 							)}
 						</>
 					);
 				})}
+
+				{!isUser && (
+					<div className='btns-calificacion'>
+						<p>Calificar respuesta:</p>
+						<button
+							className={`btn ${loading ? 'disabled' : ''}`}
+							style={{ pointerEvents: loading ? 'none' : 'auto' }}
+							onClick={() => {
+								if (!loading) calificar(5);
+							}}
+							type="button"
+						>
+							<IconBtn
+								className={nota == 5 ? 'on' : 'off'}
+								Icon={<ThumbsUpIcon />}
+							/>
+						</button>
+						<button
+							className={`btn ${loading ? 'disabled' : ''}`}
+							style={{ pointerEvents: loading ? 'none' : 'auto' }}
+							onClick={() => {
+								if (!loading) calificar(1);
+							}}
+							type="button"
+						>
+							<IconBtn
+								className={nota == 1 ? 'on' : 'off'}
+								Icon={<ThumbsDownIcon />}
+							/>
+						</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

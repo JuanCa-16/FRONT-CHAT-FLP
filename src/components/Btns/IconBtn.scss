@@ -23,9 +23,30 @@
 		}
 	}
 
-	&.active{
+	
+
+	&.off {
+		background-color: rgba(255, 255, 255, 0.264);
+		opacity: 0.5;
 		.icon {
-			color: var(--color-primary);
+			color: white;
+			opacity: 0.5;
+		}
+
+		&:hover {
+			background-color: var(--color-primary);
+			opacity: 1;
+			.icon {
+				opacity: 1;
+			}
+		}
+	}
+
+	&.on {
+		background-color: var(--color-primary);
+		.icon {
+			color: white;
+			opacity: 1;
 		}
 	}
 }

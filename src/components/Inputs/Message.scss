@@ -100,6 +100,40 @@
 				z-index: -1;
 			}
 		}
+
+		.btns-calificacion {
+			padding: 10px;
+			display: flex;
+			width: 100%;
+			max-width: 100%;
+			height: fit-content;
+			flex-direction: row;
+			gap: 10px;
+			align-items: center;
+			justify-content: flex-end;
+
+			button{
+				background:none;
+				border: none;
+				outline: none;
+				padding: 0;
+				margin: 0;
+			}
+
+			p {
+				opacity: 0.5;
+			}
+
+			.btn {
+				display: flex;
+				width: 40px;
+				height: 40px;
+
+				&.disabled{
+					opacity: 0.3;
+				}
+			}
+		}
 	}
 
 	&.inverse {
