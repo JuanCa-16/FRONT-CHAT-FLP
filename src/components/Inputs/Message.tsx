@@ -199,8 +199,9 @@ export default function Message({ role, content, documents, calificacion, id }: 
 						<button
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
-							onClick={() => {
+							onClick={(e) => {
 								if (!loading) calificar(5);
+								e.currentTarget.blur(); 
 							}}
 							type="button"
 						>
@@ -212,8 +213,9 @@ export default function Message({ role, content, documents, calificacion, id }: 
 						<button
 							className={`btn ${loading ? 'disabled' : ''}`}
 							style={{ pointerEvents: loading ? 'none' : 'auto' }}
-							onClick={() => {
+							onClick={(e) => {
 								if (!loading) calificar(1);
+								e.currentTarget.blur(); 
 							}}
 							type="button"
 						>
