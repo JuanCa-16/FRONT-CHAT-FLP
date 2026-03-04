@@ -43,9 +43,9 @@ export default function Login() {
 			window.dispatchEvent(new Event('storage'));
 
 			if (isLogin) {
-				toast.success('¡Cuenta creada con éxito!');
-			} else {
 				toast.success(`¡Bienvenido de nuevo, ${data.nombre}!`);
+			} else {
+				toast.success('¡Cuenta creada con éxito!');
 			}
 
 			navigate('/');
