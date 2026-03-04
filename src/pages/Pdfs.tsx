@@ -1,44 +1,27 @@
 import { PdfIcon } from '../components/Icons';
-import { COLORS, DATA, PAGES } from '../constants';
+import { DATA } from '../constants';
 import './Pdfs.scss';
-import TagSelector from '../components/Btns/TagSelector';
-import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../context/useAppContext';
 import { bibliotecaService, type BibliotecaCreate } from '../services/bibliotecaService';
+import TopBar from '../components/TopBar/TopBar';
 export default function Pdfs() {
-	const navigate = useNavigate();
 	const abrirPdf = (nombre: string) => {
 		window.open(`/PDFS_DIAPOSITIVAS_CAMPUS/${nombre}.pdf`, '_blank', 'noopener,noreferrer');
-	};
-
-	const { currentColor, setCurrentColor, currentPage, setCurrentPage } = useAppContext();
-
-	const handlePage = (id: string) => {
-		setCurrentPage(id);
-		navigate(id);
 	};
 
 	const agregarABiblioteca = async (payload: BibliotecaCreate) => {
 		try {
 			await bibliotecaService.agregarABiblioteca(payload);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 	return (
 		<div className='pdfs-container'>
-			<div className='tags'>
-				<TagSelector
-					value={currentColor}
-					options={COLORS}
-					onChange={setCurrentColor}
-				/>
-				<TagSelector
-					value={currentPage}
-					options={PAGES}
-					onChange={handlePage}
-				/>
-			</div>
+			<TopBar
+				color
+				page
+				model={false}
+			/>
 			<div className='grupo-pdfs'>
 				<div className='text'>
 					<h3>Documentos PDF del curso</h3>

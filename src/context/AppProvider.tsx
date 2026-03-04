@@ -9,6 +9,8 @@ interface AppProviderProps {
 export const AppProvider = ({ children }: AppProviderProps) => {
 	const location = useLocation();
 
+	const [currentModel, setCurrentModel] = useState('todo');
+
 	const [currentColor, setCurrentColor] = useState<string>(() => {
 		return localStorage.getItem('chat-primary-color') ?? '#e26821';
 	});
@@ -28,6 +30,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 	const [userHandle, setUserHandle] = useState<string | null>(() => {
 		return localStorage.getItem('user_handle');
 	});
+
+	const mobile = window.innerWidth <= 768;
+
+	const [open, setOpen] = useState(mobile ? false : true);
 
 	useEffect(() => {
 		const syncAuth = () => {
@@ -73,6 +79,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 	return (
 		<AppContext.Provider
 			value={{
+				currentModel,
+				setCurrentModel,
 				currentColor,
 				setCurrentColor,
 				currentPage,
@@ -84,6 +92,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 				triggerRefresh,
 				activeChatId,
 				setActiveChatId,
+				open,
+				setOpen,
 			}}
 		>
 			{children}

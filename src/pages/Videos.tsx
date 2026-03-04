@@ -1,34 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import './Videos.scss';
-import { useAppContext } from '../context/useAppContext';
-import TagSelector from '../components/Btns/TagSelector';
-import { COLORS, DATA, PAGES } from '../constants';
+import { DATA } from '../constants';
 import { VideoPlayer } from '../components/VideoPlayer';
+import TopBar from '../components/TopBar/TopBar';
 
 export default function Videos() {
-	const navigate = useNavigate();
-
-	const { currentColor, setCurrentColor, currentPage, setCurrentPage } = useAppContext();
-
-	const handlePage = (id: string) => {
-		setCurrentPage(id);
-		navigate(id);
-	};
-
 	return (
 		<div className='video-container'>
-			<div className='tags'>
-				<TagSelector
-					value={currentColor}
-					options={COLORS}
-					onChange={setCurrentColor}
-				/>
-				<TagSelector
-					value={currentPage}
-					options={PAGES}
-					onChange={handlePage}
-				/>
-			</div>
+			<TopBar
+				color
+				page
+				model={false}
+			/>
 
 			<div className='grupo-videos'>
 				<div className='text'>

@@ -7,34 +7,48 @@ import axios from 'axios';
 import type { MessageChat } from '../interfaces';
 import Message from '../components/Inputs/Message';
 import TypingIndicator from '../components/TypingIndicator';
-import { COLORS, MODELS, PAGES } from '../constants';
-import TagSelector from '../components/Btns/TagSelector';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/useAppContext';
 import { useParams } from 'react-router-dom';
 import { MessageService } from '../services/messageService';
 import { chatService } from '../services/chatService';
+import toast from 'react-hot-toast';
+import TopBar from '../components/TopBar/TopBar';
+
+const buildChatTitle = (text: string) => {
+	const clean = text.trim();
+
+	if (!clean) return 'Nuevo Chat';
+
+	let result: string;
+
+	if (clean.length <= 15) {
+		result = clean;
+	} else {
+		const cut = clean.slice(0, 15);
+
+		if (cut.endsWith(' ')) {
+			result = cut.trim();
+		} else if (clean[15] === ' ') {
+			result = cut;
+		} else {
+			result = cut + '...';
+		}
+	}
+
+	return result.charAt(0).toUpperCase() + result.slice(1);
+};
 
 const Chat = () => {
 	const [messages, setMessages] = useState<MessageChat[]>([]);
 	const [isConversationStarted, setIsConversationStarted] = useState(false);
 	const [isLoading, setLoading] = useState(false);
-	const [currentModel, setCurrentModel] = useState('todo');
 	const [isThinking, setIsThinking] = useState(false);
 
 	const navigate = useNavigate();
 
-	const {
-		currentColor,
-		setCurrentColor,
-		currentPage,
-		setCurrentPage,
-		isAuthenticated,
-		userHandle,
-		triggerRefresh,
-		setActiveChatId,
-		activeChatId,
-	} = useAppContext();
+	const { currentModel, isAuthenticated, userHandle, triggerRefresh, setActiveChatId, activeChatId } =
+		useAppContext();
 
 	const url = isAuthenticated ? 'chat' : 'responder';
 	const authToken = localStorage.getItem('token');
@@ -48,22 +62,32 @@ const Chat = () => {
 	const { id } = useParams<{ id?: string }>();
 
 	useEffect(() => {
-		if (id) {
-			setActiveChatId(Number(id));
-		} else {
+		if (!id) {
 			setMessages([]);
 			setIsConversationStarted(false);
 			setActiveChatId(null);
+			return;
 		}
+
+		const parsedId = Number(id);
+
+		if (isNaN(parsedId) || parsedId <= 0) {
+			// id inválido
+			navigate('/chat', { replace: true });
+			return;
+		}
+
+		setActiveChatId(parsedId);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
 
 	useEffect(() => {
-		if (!isAuthenticated || !id) return;
+		if (!isAuthenticated || !activeChatId) return;
 
 		const fetchHistorial = async () => {
 			try {
 				setLoading(true);
-				const response = await MessageService.getHistorial(Number(id));
+				const response = await MessageService.getHistorial(activeChatId);
 				setMessages(response.historial);
 				if (response.historial.length > 0) {
 					setIsConversationStarted(true);
@@ -73,10 +97,10 @@ const Chat = () => {
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
 					const message = err.response?.data?.detail || 'Error en las credenciales';
-					alert(message);
+					toast.error(message);
 					navigate(`/chat`, { replace: true });
 				} else {
-					alert('Ocurrió un error inesperado');
+					toast.error('Ocurrió un error inesperado al cargar el chat');
 				}
 			} finally {
 				setLoading(false);
@@ -84,7 +108,7 @@ const Chat = () => {
 		};
 
 		fetchHistorial();
-	}, [id, isAuthenticated, navigate]);
+	}, [activeChatId, isAuthenticated, navigate]);
 
 	//----------------------------------------
 	const getHistorial = (messages: MessageChat[]) => {
@@ -112,7 +136,8 @@ const Chat = () => {
 		let chatId = activeChatId;
 		try {
 			if (isAuthenticated && !chatId) {
-				const newChat = await chatService.newChat('Chat Front');
+				const chatTitle = buildChatTitle(message);
+				const newChat = await chatService.newChat(chatTitle);
 				chatId = newChat.id;
 				setActiveChatId(newChat.id);
 				triggerRefresh();
@@ -151,7 +176,7 @@ const Chat = () => {
 				content: 'Error al conectarse con el servidor.',
 			};
 			setMessages((prev) => [...prev, assistantMessage]);
-			console.log(error);
+			console.error(error);
 		}
 
 		setIsThinking(false);
@@ -201,7 +226,7 @@ const Chat = () => {
 				content: 'Error al conectarse con el servidor.',
 			};
 			setMessages((prev) => [...prev, assistantMessage]);
-			console.log(error);
+			console.error(error);
 		}
 
 		setIsThinking(false);
@@ -219,38 +244,14 @@ const Chat = () => {
 		});
 	}, [messages, isThinking]);
 
-	const handlePage = (pageId: string) => {
-		if (pageId === '/chat') {
-			setCurrentPage('/chat');
-			navigate(id ? `/chat/${pageId}` : '/');
-		} else {
-			setCurrentPage(pageId);
-			navigate(pageId);
-		}
-	};
-
 	return (
 		<div className='chat-container'>
 			<div className='fondo-chat'>
-				<div className='tags'>
-					<TagSelector
-						value={currentModel}
-						options={MODELS}
-						onChange={setCurrentModel}
-					/>
-
-					<TagSelector
-						value={currentColor}
-						options={COLORS}
-						onChange={setCurrentColor}
-					/>
-
-					<TagSelector
-						value={currentPage}
-						options={PAGES}
-						onChange={handlePage}
-					/>
-				</div>
+				<TopBar
+					model
+					color
+					page
+				/>
 				{isLoading && <TypingIndicator />}
 				{!isLoading && !isConversationStarted ? (
 					<div className='chat welcome'>

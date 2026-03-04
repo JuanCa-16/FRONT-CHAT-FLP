@@ -3,6 +3,8 @@ import './Login.scss';
 import { authService } from '../services/authService';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 interface FormValues {
 	nombre?: string;
@@ -13,7 +15,7 @@ interface FormValues {
 export default function Login() {
 	const [isLogin, setIsLogin] = useState(true);
 	const [loading, setLoading] = useState(false);
-
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
@@ -40,15 +42,19 @@ export default function Login() {
 			localStorage.setItem('user_handle', data.usuario);
 			window.dispatchEvent(new Event('storage'));
 
-			alert(isLogin ? `¡Bienvenido de nuevo, ${data.nombre}!` : '¡Cuenta creada con éxito!');
+			if (isLogin) {
+				toast.success('¡Cuenta creada con éxito!');
+			} else {
+				toast.success(`¡Bienvenido de nuevo, ${data.nombre}!`);
+			}
 
-			window.location.href = '/';
+			navigate('/');
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				const message = err.response?.data?.detail || 'Error en las credenciales';
-				alert(message);
+				toast.error(message);
 			} else {
-				alert('Ocurrió un error inesperado');
+				toast.error('Ocurrió un error inesperado');
 			}
 		} finally {
 			setLoading(false);

@@ -82,18 +82,20 @@
 				margin-top: 25px;
 				display: grid;
 				width: 100%;
-				grid-template-columns: repeat(auto-fill, minmax(385px, 1fr));
+				grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 				gap: 50px 50px; // filas / columnas
 				opacity: 0.8;
-				overflow-y: auto;
+				list-style: none;
+				//overflow-y: auto;
 			}
 		}
 	}
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
 	.video-container {
 		//padding: 17px 0px;
+		
 
 		.grupo-videos > * {
 			padding: 17px;
@@ -103,7 +105,7 @@
 				padding: 10px;
 
 				.video {
-					grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+					grid-template-columns: 1fr;
 					gap: 25px 50px;
 				}
 			}

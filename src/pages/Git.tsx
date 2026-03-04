@@ -1,43 +1,26 @@
 import { GitIcon } from '../components/Icons';
-import { COLORS, DATA, PAGES } from '../constants';
+import { DATA } from '../constants';
 import './Git.scss';
-import TagSelector from '../components/Btns/TagSelector';
-import { useNavigate } from 'react-router-dom';
-import { useAppContext } from '../context/useAppContext';
+
 import { bibliotecaService, type BibliotecaCreate } from '../services/bibliotecaService';
+import TopBar from '../components/TopBar/TopBar';
 
 export default function Git() {
-	const navigate = useNavigate();
-
-	const { currentColor, setCurrentColor, currentPage, setCurrentPage } = useAppContext();
-
-	const handlePage = (id: string) => {
-		setCurrentPage(id);
-		navigate(id);
-	};
-
 	const agregarABiblioteca = async (payload: BibliotecaCreate) => {
 		try {
 			await bibliotecaService.agregarABiblioteca(payload);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
 	return (
 		<div className='gits-container'>
-			<div className='tags'>
-				<TagSelector
-					value={currentColor}
-					options={COLORS}
-					onChange={setCurrentColor}
-				/>
-				<TagSelector
-					value={currentPage}
-					options={PAGES}
-					onChange={handlePage}
-				/>
-			</div>
+			<TopBar
+				color
+				page
+				model={false}
+			/>
 			<div className='grupo-gits'>
 				<div className='text'>
 					<h3>Documentos GIT del curso</h3>

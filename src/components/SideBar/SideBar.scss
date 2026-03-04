@@ -136,8 +136,13 @@
 	}
 }
 
+.sidebar-overlay {
+	display: none; // Debe estar debajo de la sidebar pero encima del contenido
+}
+
 @media (max-width: 768px) {
 	.sidebar-overlay {
+		display: flex;
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -169,15 +174,16 @@
 			box-shadow: none;
 
 			.menuSuperior .btn-default.icon-div {
-				position: fixed;
-				left: calc(100% + 15px);
-				top: 15px;
-				background: var(--color-primary);
-				display: flex;
-				padding: 0;
-				visibility: visible;
-				opacity: 1;
-				pointer-events: auto;
+				display: none;
+				// position: fixed;
+				// left: calc(100% + 15px);
+				// top: 15px;
+				// background: var(--color-primary);
+				// display: flex;
+				// padding: 0;
+				// visibility: visible;
+				// opacity: 1;
+				// pointer-events: auto;
 			}
 		}
 	}

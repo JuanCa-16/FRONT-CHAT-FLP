@@ -17,7 +17,7 @@ export const VideoPlayer = ({ videoUrl, nombre, id }: { videoUrl: string; nombre
 		try {
 			await bibliotecaService.agregarABiblioteca(payload);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 		}
 	};
 
@@ -30,7 +30,7 @@ export const VideoPlayer = ({ videoUrl, nombre, id }: { videoUrl: string; nombre
 	};
 	if (!isLoaded) {
 		return (
-			<div>
+			<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 				<Tag
 					onOpenMenu={() => handleLoad()}
 					text={limpio}
@@ -82,7 +82,7 @@ export const VideoPlayer = ({ videoUrl, nombre, id }: { videoUrl: string; nombre
 	}
 
 	return (
-		<div>
+		<div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
 			<Tag
 				onOpenMenu={() => {}}
 				text={limpio}

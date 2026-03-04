@@ -8,6 +8,7 @@ import type { ChatResponse } from '../../services/chatService';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../../context/useAppContext';
+import toast from 'react-hot-toast';
 
 export default function SideBar() {
 	const [chats, setChats] = useState<ChatResponse[]>([]);
@@ -27,9 +28,9 @@ export default function SideBar() {
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
 					const message = err.response?.data?.detail || 'Error en las credenciales';
-					alert(message);
+					toast.error(message);
 				} else {
-					alert('Ocurrió un error inesperado');
+					toast.error('Ocurrió un error inesperado al traer tus chats.');
 				}
 				setChats([]);
 			} finally {
@@ -38,13 +39,14 @@ export default function SideBar() {
 		};
 
 		fetchChats();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isAuthenticated, refreshChats]);
 
 	const navigate = useNavigate();
 
 	const newChat = async () => {
 		try {
-			const chat = await chatService.newChat('Chat Front');
+			const chat = await chatService.newChat('Nuevo Chat');
 			setLoadingCreate(true);
 			setChats((chats) => [chat, ...chats]);
 			setActiveChatId(chat.id);
@@ -52,9 +54,9 @@ export default function SideBar() {
 		} catch (err) {
 			if (axios.isAxiosError(err)) {
 				const message = err.response?.data?.detail || 'Error en las credenciales';
-				alert(message);
+				toast.error(message);
 			} else {
-				alert('Ocurrió un error inesperado');
+				toast.error('Ocurrió un error inesperado al crear el chat.');
 			}
 		} finally {
 			setLoadingCreate(false);
@@ -79,9 +81,9 @@ export default function SideBar() {
 
 			if (axios.isAxiosError(err)) {
 				const message = err.response?.data?.detail || 'Error eliminando el chat';
-				alert(message);
+				toast.error(message);
 			} else {
-				alert('Ocurrió un error inesperado');
+				toast.error('Ocurrió un error inesperado al eliminar el chat');
 			}
 		}
 	};
@@ -103,20 +105,19 @@ export default function SideBar() {
 
 			if (axios.isAxiosError(err)) {
 				const message = err.response?.data?.detail || 'Error actualizando el chat';
-				alert(message);
+				toast.error(message);
 			} else {
-				alert('Ocurrió un error inesperado');
+				toast.error('Ocurrió un error inesperado al actualizar el chat');
 			}
 		}
 	};
 
-	const mobile = window.innerWidth <= 768;
 
-	const [open, setOpen] = useState(mobile ? false : true);
 
+	const { open, setOpen } = useAppContext();
 	return (
 		<>
-			{open && mobile && (
+			{open  && (
 				<div
 					className='sidebar-overlay'
 					onClick={() => setOpen(false)}
@@ -144,7 +145,7 @@ export default function SideBar() {
 								disabled={loadingCreate}
 							>
 								<PlusIcon />
-								<p className='logout-text'>Crear Chat</p>
+								<p className='logout-text'>Nuevo Chat</p>
 							</button>
 						</div>
 					)}
@@ -162,9 +163,6 @@ export default function SideBar() {
 									txt={chat.titulo}
 									active={chat.id === activeChatId}
 									onClick={() => {
-										if (mobile) {
-											setOpen(false);
-										}
 										setActiveChatId(chat.id);
 										navigate(`/chat/${chat.id}`);
 									}}

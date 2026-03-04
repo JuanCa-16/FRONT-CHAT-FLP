@@ -1,0 +1,21 @@
+.tags {
+	.menu {
+		display: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.tags {
+		.menu {
+            display: flex;
+			width: fit-content;
+			.tag-container {
+				max-height: 100%;
+			}
+
+			p {
+				display: none;
+			}
+		}
+	}
+}

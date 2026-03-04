@@ -1,6 +1,10 @@
 import { createContext } from 'react';
 
 export interface AppContextType {
+
+	currentModel: string;
+	setCurrentModel: (page: string) => void;
+
 	currentColor: string;
 	setCurrentColor: (color: string) => void;
 
@@ -16,6 +20,9 @@ export interface AppContextType {
 	
 	refreshChats: number;
 	triggerRefresh: () => void;
+
+	open: boolean;
+	setOpen: (page: boolean) => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);

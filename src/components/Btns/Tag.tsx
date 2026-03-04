@@ -51,9 +51,10 @@ const Tag = ({ onOpenMenu, option, text, Icon }: InputChatProps) => {
 			<div
 				className='tag-container'
 				onClick={onOpenMenu}
-				style={{height: 'fit-content', width: '100%' }}
+				style={{ height: 'fit-content', width: '100%' }}
 			>
 				<div
+					className='tag-icon'
 					style={{
 						height: '20px',
 						width: '20px',
