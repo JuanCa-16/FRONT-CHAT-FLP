@@ -259,7 +259,7 @@ const Chat = () => {
 							<h1>
 								Hola{' '}
 								<span style={{ color: 'var(--color-primary)' }}>
-									{userHandle?.toUpperCase()}!
+									{userHandle}!
 								</span>
 							</h1>
 						) : (

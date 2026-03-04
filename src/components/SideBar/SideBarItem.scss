@@ -12,17 +12,17 @@
 	width: 100%;
 	overflow: hidden;
 
-	// &::before {
-	// 	content: '';
-	// 	position: absolute;
-	// 	right:  0;
-	// 	top: 0;
-	// 	bottom: 0;
-	// 	width: 2px; // Grosor de la línea
-	// 	background-color: var(--color-primary);
-	// 	transform: scaleY(0); // Escondida por defecto
-	// 	transition: transform 0.1s ease-in-out;
-	// }
+	&::before {
+		content: '';
+		position: absolute;
+		left:  0;
+		top: 0;
+		bottom: 0;
+		width: 2px;// Grosor de la línea
+		background-color: var(--color-primary);
+		transform: scaleY(0);// Escondida por defecto
+		transition: transform 0.1s ease-in-out;
+	}
 
 	&:hover,
 	&.active {
@@ -38,9 +38,9 @@
 			z-index: -1;
 		}
 
-		// &::before {
-		// 	transform: scaleY(1); // Se estira de arriba a abajo al estar activo/hover
-		// }
+		&::before {
+		 	transform: scaleY(1); // Se estira de arriba a abajo al estar activo/hover
+		 }
 	}
 
 	&:hover {

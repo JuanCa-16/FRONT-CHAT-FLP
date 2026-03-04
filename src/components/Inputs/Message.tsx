@@ -5,7 +5,7 @@ import './Message.scss';
 import type { ChatMessageProps } from '../../interfaces';
 import remarkBreaks from 'remark-breaks';
 import IconBtn from '../Btns/IconBtn';
-import { ThumbsDownIcon, ThumbsUpIcon } from '../Icons';
+import { GitIcon, PdfIcon, ThumbsDownIcon, ThumbsUpIcon } from '../Icons';
 import { MessageService } from '../../services/messageService';
 import { useState } from 'react';
 interface CodeComponentProps {
@@ -116,7 +116,10 @@ export default function Message({ role, content, documents, calificacion, id }: 
 						? metadata?.LINK_VIDEO
 						: (metadata?.URL ?? null);
 
-					const nombrePdf = metadata?.NOMBRE_DOCUMENTO ?? null;
+					const nombre = metadata?.NOMBRE_DOCUMENTO ?? null;
+
+					const partes = nombre.split('_');
+					const nombreGit = partes.length > 1 ? partes[1] : '';
 
 					const linkVideo = rawLink ? rawLink.replace('watch?v=', 'embed/') : null;
 
@@ -146,7 +149,7 @@ export default function Message({ role, content, documents, calificacion, id }: 
 								</>
 							)}
 
-							{metadata?.FUENTE == 'PDF' && showInfo && nombrePdf && (
+							{metadata?.FUENTE == 'PDF' && showInfo && nombre && (
 								<>
 									{!isMobile ? (
 										<>
@@ -154,7 +157,7 @@ export default function Message({ role, content, documents, calificacion, id }: 
 												<br />
 											</p>
 											<iframe
-												src={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
+												src={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombre}.pdf`}
 												width='100%'
 												height='600px'
 												style={{
@@ -164,7 +167,7 @@ export default function Message({ role, content, documents, calificacion, id }: 
 										</>
 									) : (
 										<a
-											href={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombrePdf}.pdf`}
+											href={`/PDFS_DIAPOSITIVAS_CAMPUS/${nombre}.pdf`}
 											target='_blank'
 											rel='noopener noreferrer'
 											className='pdf-link'
@@ -173,7 +176,8 @@ export default function Message({ role, content, documents, calificacion, id }: 
 												textDecoration: 'none',
 											}}
 										>
-											Abrir PDF
+											<PdfIcon />
+											<p>{nombre}.</p>
 										</a>
 									)}
 								</>
@@ -190,7 +194,8 @@ export default function Message({ role, content, documents, calificacion, id }: 
 										textDecoration: 'none',
 									}}
 								>
-									Ir al GitHub
+									<GitIcon />
+									{nombreGit && <p>{nombreGit}.</p>}
 								</a>
 							)}
 						</>
