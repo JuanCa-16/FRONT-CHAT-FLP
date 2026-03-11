@@ -9,6 +9,9 @@ interface AppProviderProps {
 export const AppProvider = ({ children }: AppProviderProps) => {
 	const location = useLocation();
 
+	const [activeChatId, setActiveChatId] = useState<number | null>(null);
+
+
 	const [currentModel, setCurrentModel] = useState('todo');
 
 	const [currentColor, setCurrentColor] = useState<string>(() => {
@@ -37,9 +40,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 	useEffect(() => {
 		const syncAuth = () => {
-			setIsAuthenticated(!!localStorage.getItem('token'));
+			const token = localStorage.getItem('token');
+
+			setIsAuthenticated(!!token);
 			setUserName(localStorage.getItem('user_name'));
 			setUserHandle(localStorage.getItem('user_handle'));
+
+			if (!token) {
+				setActiveChatId(null);
+			}
 		};
 
 		window.addEventListener('storage', syncAuth);
@@ -74,8 +83,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		setRefreshChats((prev) => prev + 1);
 	};
 
-	const [activeChatId, setActiveChatId] = useState<number | null>(null);
-
+	
 	return (
 		<AppContext.Provider
 			value={{

@@ -84,6 +84,8 @@ const Chat = () => {
 	useEffect(() => {
 		if (!isAuthenticated || !activeChatId) return;
 
+		if (messages.length > 0 && isConversationStarted) return;
+
 		const fetchHistorial = async () => {
 			try {
 				setLoading(true);
