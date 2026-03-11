@@ -69,7 +69,7 @@ export default function Recomendaciones() {
 					{recomendaciones && corpus &&
 						(recomendaciones.modo === 'cold_start' ? (
 							<p style={{ fontStyle: 'italic' }}>
-								Sin datos para recomendarte
+								Sin datos para recomendarte. Realiza una consulta en el Chat primero.
 							</p>
 						) : (
 							componentes.map((comp) => {
