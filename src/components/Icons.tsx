@@ -193,6 +193,20 @@ const ThumbsDownIcon = () => (
 	</svg>
 );
 
+const UserIcon = () => (
+	<svg
+		xmlns='http://www.w3.org/2000/svg'
+		viewBox='0 0 7 9'
+		fill='none'
+		className='icon'
+	>
+		<path
+			fill='currentColor'
+			d='M6.975 8.02a.312.312 0 0 1-.313.313H.313A.312.312 0 0 1 0 8.021c0-1.709 1.875-3.034 3.487-3.034 1.613 0 3.488 1.325 3.488 3.034ZM5.613 2.13a2.125 2.125 0 1 1-4.25-.01 2.125 2.125 0 0 1 4.25.01Z'
+		/>
+	</svg>
+);
+
 export {
 	SendIcon,
 	GearIcon,
@@ -205,5 +219,6 @@ export {
 	GitIcon,
 	ChatIcon,
 	ThumbsUpIcon,
-	ThumbsDownIcon
+	ThumbsDownIcon,
+	UserIcon,
 };

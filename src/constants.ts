@@ -9,6 +9,7 @@ export const MODELS = [
 export const COLORS = [
 	{ id: '#e26821', name: 'Naranja', desc: 'Naranja intenso.', title: 'Tema' },
 	{ id: '#2563eb', name: 'Azul', desc: 'Azul profundo.', title: 'Tema' },
+	{ id: '#06b6d4', name: 'Cian', desc: 'Cian brillante y moderno.', title: 'Tema' },
 	{ id: '#eb2c25', name: 'Rojo', desc: 'Rojo Univalle', title: 'Tema' },
 	{ id: '#16a34a', name: 'Verde', desc: 'Verde equilibrado.', title: 'Tema' },
 	{ id: '#7c3aed', name: 'Morado', desc: 'Morado oscuro.', title: 'Tema' },
@@ -34,6 +35,12 @@ export const PAGES = [
 		name: 'GitHub',
 		desc: 'Documentación y ejemplos del curso para dominar la materia.',
 		title: 'Git',
+	},
+	{
+		id: '/recomendaciones',
+		name: 'Recomendaciones',
+		desc: 'Material sugerido según tu historial y actividad en la plataforma.',
+		title: 'User',
 	},
 ];
 
@@ -705,6 +712,49 @@ export const DATA = {
 	},
 	'9': {
 		tematica: 'Inferencia de tipos',
+		videos: [],
+		pdfs: [
+			{
+				id: '14',
+				nombre: '9. Inferencia de tipos',
+				url: '',
+			},
+			{
+				id: '15',
+				nombre: '9.1. Ejemplos inferencia de tipos',
+				url: '',
+			},
+		],
+		git: [
+			{
+				id: '123',
+				nombre: 'Clase 12. Interpretador tipos e inferencia_Ejemplo 1 Inferencia',
+				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Ejemplo%201%20Inferencia/',
+			},
+			{
+				id: '124',
+				nombre: 'Clase 12. Interpretador tipos e inferencia_Ejemplo 2 Inferencia',
+				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Ejemplo%202%20Inferencia/',
+			},
+			{
+				id: '125',
+				nombre: 'Clase 12. Interpretador tipos e inferencia_Interpretador inferencia',
+				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interpretador%20inferencia/',
+			},
+			{
+				id: '126',
+				nombre: 'Clase 12. Interpretador tipos e inferencia_Interprete de chequeo (terminado)',
+				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interprete%20de%20chequeo/',
+			},
+			{
+				id: '127',
+				nombre: 'Clase 12. Interpretador tipos e inferencia_Interprete de chequeo V',
+				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interprete%20de%20chequeo%20V/',
+			},
+		],
+	},
+	'10': {
+		tematica: 'Objetos',
 		videos: [
 			{
 				id: '76',
@@ -762,49 +812,6 @@ export const DATA = {
 				url: 'https://www.youtube.com/watch?v=nL5i_K0OV_4',
 			},
 		],
-		pdfs: [
-			{
-				id: '14',
-				nombre: '9. Inferencia de tipos',
-				url: '',
-			},
-			{
-				id: '15',
-				nombre: '9.1. Ejemplos inferencia de tipos',
-				url: '',
-			},
-		],
-		git: [
-			{
-				id: '123',
-				nombre: 'Clase 12. Interpretador tipos e inferencia_Ejemplo 1 Inferencia',
-				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Ejemplo%201%20Inferencia/',
-			},
-			{
-				id: '124',
-				nombre: 'Clase 12. Interpretador tipos e inferencia_Ejemplo 2 Inferencia',
-				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Ejemplo%202%20Inferencia/',
-			},
-			{
-				id: '125',
-				nombre: 'Clase 12. Interpretador tipos e inferencia_Interpretador inferencia',
-				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interpretador%20inferencia/',
-			},
-			{
-				id: '126',
-				nombre: 'Clase 12. Interpretador tipos e inferencia_Interprete de chequeo (terminado)',
-				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interprete%20de%20chequeo/',
-			},
-			{
-				id: '127',
-				nombre: 'Clase 12. Interpretador tipos e inferencia_Interprete de chequeo V',
-				url: 'https://cardel.github.io/notasUniversidad/2025-II/FLP/Clase%2012/Interprete%20de%20chequeo%20V/',
-			},
-		],
-	},
-	'10': {
-		tematica: 'Objetos',
-		videos: [],
 		pdfs: [
 			{
 				id: '7',

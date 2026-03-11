@@ -293,6 +293,7 @@ const Chat = () => {
 
 				<InputChat
 					onSendMessage={!isConversationStarted ? handleStartChat : handleSendMessage}
+					isThinking = {isThinking}
 					placeholder='Pregunta lo que quieras a tu profe de FLP'
 				/>
 			</div>

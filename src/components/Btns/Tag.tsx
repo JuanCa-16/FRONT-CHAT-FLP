@@ -1,6 +1,6 @@
 import type { JSX } from 'react';
 import type { TagOption } from '../../interfaces';
-import { ChatIcon, GearIcon, GitIcon, PdfIcon, ThemeIcon, YoutubeIcon } from '../Icons';
+import { ChatIcon, GearIcon, GitIcon, PdfIcon, ThemeIcon, UserIcon, YoutubeIcon } from '../Icons';
 import './Tag.scss';
 
 interface InputChatProps {
@@ -25,13 +25,16 @@ const Tag = ({ onOpenMenu, option, text, Icon }: InputChatProps) => {
 				icon = <GitIcon />;
 				break;
 			case 'Video':
-				icon = <YoutubeIcon />;
+				icon = <div style={{width:'100%', height:'100%', padding:'2px', display:'flex', justifyContent:'center', alignItems:'center'}}><YoutubeIcon /></div>;
 				break;
 			case 'Pdf':
 				icon = <PdfIcon />;
 				break;
 			case 'Chat':
 				icon = <ChatIcon />;
+				break;
+			case 'User':
+				icon = <UserIcon />;
 				break;
 			default:
 				icon = <GearIcon />;

@@ -8,13 +8,13 @@
 	min-height: 100dvh;
 
 	opacity: 0.8;
-	background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+	background: color-mix(in srgb, var(--color-primary) 5%, transparent);
 	backdrop-filter: blur(37.5px);
 	box-shadow: 10px 0 55px color-mix(in srgb, var(--color-primary) 10%, transparent);
 
 	border-radius: 0px 8px 8px 0px;
 	padding: 10px;
-	transition: width 0.1s ease-in-out;
+	transition: width 0.2s ease-in-out;
 	white-space: nowrap;
 	color: var(--text);
 
@@ -58,7 +58,7 @@
 		gap: 5px;
 		transition:
 			opacity 0.2s ease-in-out,
-			visibility 0.1s;
+			visibility 0.2s ease-in-out;
 		opacity: 1;
 		visibility: visible;
 		overflow-y: auto;
@@ -109,7 +109,7 @@
 			.logout-text {
 				white-space: nowrap;
 				opacity: 1;
-				transition: opacity 0.1s ease-in-out;
+				transition: opacity 0.2s ease-in-out,max-width 0.2s ease-in-out;
 			}
 		}
 	}
@@ -130,6 +130,7 @@
 
 				.logout-text {
 					opacity: 0;
+					max-width: 0;
 					overflow: hidden;
 				}
 			}
@@ -164,9 +165,9 @@
 		min-height: 100dvh;
 		width: 280px;
 		transform: translateX(0); // Abierto por defecto
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 		box-shadow: 10px 0 55px color-mix(in srgb, var(--color-primary) 10%, transparent);
-		background: color-mix(in srgb, var(--color-primary) 10%, transparent);
+		background: color-mix(in srgb, var(--color-primary) 5%, transparent);
 		opacity: 1;
 		backdrop-filter: blur(120px);
 

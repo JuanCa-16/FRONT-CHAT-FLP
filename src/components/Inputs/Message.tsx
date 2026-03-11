@@ -202,7 +202,7 @@ export default function Message({ role, content, documents, calificacion, id }: 
 					);
 				})}
 
-				{!isUser && (
+				{!isUser && id && (
 					<div className='btns-calificacion'>
 						<p>Calificar respuesta:</p>
 						<button

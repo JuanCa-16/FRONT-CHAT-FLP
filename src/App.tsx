@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import MainLayout from './layouts/MainLayout';
 import { useAppContext } from './context/useAppContext';
 import Git from './pages/Git';
+import Recomendaciones from './pages/Recomendaciones';
 
 function ProtectedRoute() {
 	const { isAuthenticated } = useAppContext();
@@ -79,6 +80,10 @@ function App() {
 					<Route
 						path='/git'
 						element={<Git />}
+					/>
+					<Route
+						path='/recomendaciones'
+						element={<Recomendaciones />}
 					/>
 				</Route>
 			</Route>

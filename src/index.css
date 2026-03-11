@@ -6,8 +6,8 @@
 
 	--color-primary: #e26821;
 	--gray: #8b8585;
-	--transparent: rgba(48, 43, 43, 0.086);
-	--transparentTags: rgba(0, 0, 0, 0.686);
+	--transparent: rgba(94, 92, 92, 0.185);
+	--transparentTags: rgba(0, 0, 0, 0.726);
 	--transparentWhite: rgba(255, 255, 255, 0.035);
 	--text: #fff;
 }
@@ -31,7 +31,7 @@ body {
 	min-height: 100dvh;
 	height: 100%;
 	overflow: hidden;
-	background: rgba(36, 33, 33, 0.45);
+	background: rgba(27, 26, 26, 0.349);
 	backdrop-filter: blur(125px);
 }
 
@@ -40,7 +40,7 @@ body {
 	height: 216px;
 	border-radius: 9999px;
 	position: absolute;
-	opacity: 0.75;
+	opacity: 0.35;
 	background: var(--color-primary);
 
 	&.ellipse-1 {

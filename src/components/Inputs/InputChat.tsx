@@ -6,9 +6,10 @@ import { useRef, useState, type FormEvent } from 'react';
 interface ChatInputProps {
 	onSendMessage: (message: string) => void;
 	placeholder?: string;
+	isThinking:boolean;
 }
 
-const InputChat = ({ onSendMessage, placeholder = 'Escribe tu mensaje...' }: ChatInputProps) => {
+const InputChat = ({ onSendMessage, placeholder = 'Escribe tu mensaje...', isThinking }: ChatInputProps) => {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	const handleInput = () => {
@@ -61,7 +62,7 @@ const InputChat = ({ onSendMessage, placeholder = 'Escribe tu mensaje...' }: Cha
 			<button
 				className='btn'
 				type='submit'
-				disabled={!message.trim()}
+				disabled={!message.trim() || isThinking}
 			>
 				<IconBtn Icon={<SendIcon />} />
 			</button>

@@ -124,13 +124,21 @@
 		.grupo-gits > * {
 			padding: 17px;
 		}
+
+		.grupo-gits{
+			.temas {
+				.gits {
+					grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+				}
+			}
+		}
 	}
 }
 
 @media (hover: hover) and (pointer: fine) {
 	.grupo-gits .git:hover {
 		cursor: pointer;
-		transform: scale(0.85);
+		transform: scale(0.95);
 	}
 }
 

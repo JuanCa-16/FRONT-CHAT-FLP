@@ -123,6 +123,15 @@
 	.pdfs-container {
 		.grupo-pdfs > * {
 			padding: 17px;
+			
+		}
+
+		.grupo-pdfs{
+			.temas {
+				.pdfs {
+					grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+				}
+			}
 		}
 	}
 }
@@ -130,7 +139,7 @@
 @media (hover: hover) and (pointer: fine) {
 	.grupo-pdfs .pdf:hover {
 		cursor: pointer;
-		transform: scale(0.85);
+		transform: scale(0.95);
 	}
 }
 
