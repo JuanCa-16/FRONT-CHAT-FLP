@@ -48,6 +48,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 			if (!token) {
 				setActiveChatId(null);
+				setOpen(mobile ? false : true)
 			}
 		};
 
