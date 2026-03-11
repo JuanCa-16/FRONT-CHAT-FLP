@@ -61,12 +61,19 @@ const Chat = () => {
 	// PARA INICIO SESION
 	const { id } = useParams<{ id?: string }>();
 
+	console.log('idd',id,messages,isConversationStarted)
+
 	useEffect(() => {
+		
 		if (!id) {
 			setMessages([]);
 			setIsConversationStarted(false);
 			setActiveChatId(null);
+			setIsThinking(false)
 			return;
+		}else{
+			setMessages([]);
+			setIsConversationStarted(false);
 		}
 
 		const parsedId = Number(id);
@@ -247,7 +254,7 @@ const Chat = () => {
 	}, [messages, isThinking]);
 
 	return (
-		<div className='chat-container'>
+		<div className='chat-container' key={activeChatId}>
 			<div className='fondo-chat'>
 				<TopBar
 					model
