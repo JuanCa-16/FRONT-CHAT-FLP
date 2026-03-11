@@ -26,6 +26,5 @@ export const authService = {
 		localStorage.removeItem('user_handle');
 
 		window.dispatchEvent(new Event('storage'));
-		window.location.href = '/login';
 	},
 };

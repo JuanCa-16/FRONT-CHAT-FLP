@@ -26,7 +26,10 @@ api.interceptors.response.use(
 
 			if (token) {
 				localStorage.removeItem('token');
-				window.location.href = '/login';
+				localStorage.removeItem('user_name');
+				localStorage.removeItem('user_handle');
+
+				window.dispatchEvent(new Event('storage'));
 			}
 		}
 		return Promise.reject(error);
