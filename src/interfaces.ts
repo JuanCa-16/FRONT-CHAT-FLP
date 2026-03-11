@@ -8,7 +8,19 @@ export interface Metadata {
 	NOMBRE_DOCUMENTO: string;
 	URL?: string;
 	LINK_VIDEO?: string;
+	codigo?:string;
 }
+
+export interface CorpusItem {
+	id: number;
+	tipo: string;
+	contenido:string;
+	metadata:Metadata;
+	palabras_clave:string[];
+	titulo: string;
+}
+
+export type Corpus = Record<number, CorpusItem>
 
 export interface documents {
 	id?: number;

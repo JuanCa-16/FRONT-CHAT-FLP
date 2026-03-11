@@ -3,6 +3,7 @@ import './Recomendaciones.scss';
 import { recomendacionService, type RecomendacionesResponse } from '../services/recomendacion';
 import Message from '../components/Inputs/Message';
 import TopBar from '../components/TopBar/TopBar';
+import type { Corpus } from '../interfaces';
 
 function marcarPalabras(texto: string, palabras: string[]) {
 	const regex = new RegExp(`\\b(${palabras.join('|')})\\b`, 'gi');
@@ -31,7 +32,7 @@ function agregarLenguajeRacket(texto: string): string {
 }
 
 export default function Recomendaciones() {
-	const [corpus, setCorpus] = useState({});
+	const [corpus, setCorpus] = useState<Corpus>();
 	const [recomendaciones, setRecomendaciones] = useState<RecomendacionesResponse | null>(null);
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -65,7 +66,7 @@ export default function Recomendaciones() {
 				<p className='recomendaciones' style={{ fontStyle: 'italic' }}>Cargando...</p>
 			) : (
 				<div className='recomendaciones'>
-					{recomendaciones &&
+					{recomendaciones && corpus &&
 						(recomendaciones.modo === 'cold_start' ? (
 							<p style={{ fontStyle: 'italic' }}>
 								Sin datos para recomendarte
