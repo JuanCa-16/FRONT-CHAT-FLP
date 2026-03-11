@@ -6,8 +6,18 @@ import TopBar from '../components/TopBar/TopBar';
 import type { Corpus } from '../interfaces';
 
 function marcarPalabras(texto: string, palabras: string[]) {
-	const regex = new RegExp(`\\b(${palabras.join('|')})\\b`, 'gi');
-	return texto.replace(regex, '`$1`');
+	// Dividir por bloques de código (incluyendo bloques inline con backticks simples)
+	const partes = texto.split(/(```[\w]*\n[\s\S]*?```|`[^`\n]+`)/g);
+	
+	return partes.map((parte) => {
+		// Si es un bloque de código (triple backtick) o código inline (backtick simple), NO marcar
+		if (parte.startsWith('```') || parte.startsWith('`')) {
+			return parte;
+		}
+		// Si es texto normal, marcar palabras clave
+		const regex = new RegExp(`\\b(${palabras.join('|')})\\b`, 'gi');
+		return parte.replace(regex, '`$1`');
+	}).join('');
 }
 
 const componentes = [
@@ -18,18 +28,51 @@ const componentes = [
 ] as const;
 
 function agregarLenguajeRacket(texto: string): string {
-	return texto.replace(/```(\s*\n)/g, (match, salto, offset, str) => {
-		const antes = str.slice(0, offset);
-		const lineaAnterior = antes.split('\n').pop();
-
-		// Si la línea anterior ya tenía ``` con lenguaje, no tocar
-		if (lineaAnterior && lineaAnterior.startsWith('```') && lineaAnterior.length > 3) {
-			return match;
+	// Primero, encontrar todos los bloques de código con triple backtick
+	const bloques: Array<{ inicio: number; fin: number; lenguaje: string | null }> = [];
+	const regex = /```(\w*)\n/g;
+	let match;
+	
+	// Identificar todos los bloques de código
+	while ((match = regex.exec(texto)) !== null) {
+		const lenguaje = match[1] || null;
+		const inicioBloque = match.index;
+		
+		// Buscar el cierre del bloque
+		const cierreRegex = /```/g;
+		cierreRegex.lastIndex = match.index + match[0].length;
+		const cierreMatch = cierreRegex.exec(texto);
+		
+		if (cierreMatch) {
+			bloques.push({
+				inicio: inicioBloque,
+				fin: cierreMatch.index + 3,
+				lenguaje,
+			});
+			regex.lastIndex = cierreMatch.index + 3;
 		}
-
-		return '```racket' + salto;
-	});
+	}
+	
+	// Procesar el texto de atrás hacia adelante para no afectar los índices
+	let resultado = texto;
+	for (let i = bloques.length - 1; i >= 0; i--) {
+		const bloque = bloques[i];
+		
+		// Si el bloque no tiene lenguaje (es null o vacío), agregar "racket"
+		if (!bloque.lenguaje) {
+			const antes = resultado.substring(0, bloque.inicio);
+			const bloqueTexto = resultado.substring(bloque.inicio, bloque.fin);
+			const despues = resultado.substring(bloque.fin);
+			
+			// Reemplazar ``` por ```racket solo en la apertura
+			const bloqueModificado = bloqueTexto.replace(/```\n/, '```racket\n');
+			resultado = antes + bloqueModificado + despues;
+		}
+	}
+	
+	return resultado;
 }
+
 
 export default function Recomendaciones() {
 	const [corpus, setCorpus] = useState<Corpus>();

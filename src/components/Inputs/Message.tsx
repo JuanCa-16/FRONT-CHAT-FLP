@@ -8,6 +8,7 @@ import IconBtn from '../Btns/IconBtn';
 import { GitIcon, PdfIcon, ThumbsDownIcon, ThumbsUpIcon } from '../Icons';
 import { MessageService } from '../../services/messageService';
 import { useState } from 'react';
+import MermaidDiagram from './Mermaid';
 interface CodeComponentProps {
 	node?: unknown;
 	inline?: boolean;
@@ -86,6 +87,13 @@ export default function Message({ role, content, documents, calificacion, id }: 
 					components={{
 						code({ inline, className, children, ...props }: CodeComponentProps) {
 							const match = /language-(\w+)/.exec(className || '');
+							const language = match ? match[1] : '';
+
+							// Si es mermaid, renderizar con el componente especial
+							if (!inline && language === 'mermaid') {
+								return <MermaidDiagram chart={String(children).replace(/\n$/, '')} />;
+							}
+
 							return !inline && match ? (
 								<SyntaxHighlighter
 									remarkPlugins={[remarkBreaks]}

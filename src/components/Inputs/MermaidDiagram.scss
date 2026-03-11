@@ -1,0 +1,56 @@
+.mermaid-diagram {
+	margin: 1.5rem 0;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: visible;
+	padding: 1rem 0;
+	
+	&::-webkit-scrollbar {
+		height: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.3);
+		border-radius: 4px;
+		
+		&:hover {
+			background: rgba(255, 255, 255, 0.5);
+		}
+	}
+	
+	svg {
+		height: auto;
+		display: block;
+		min-width: fit-content;
+	}
+
+	:global {
+		.nodeLabel {
+			padding: 15px 25px !important;
+			line-height: 1.6 !important;
+			white-space: nowrap !important;
+		}
+
+		.node rect,
+		.node circle,
+		.node ellipse,
+		.node polygon {
+			padding: 15px !important;
+		}
+
+		foreignObject {
+			overflow: visible !important;
+		}
+	}
+
+	&.mermaid-error {
+		padding: 1rem;
+		background-color: rgba(239, 68, 68, 0.1);
+		border-radius: 8px;
+	}
+}
