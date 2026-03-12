@@ -61,19 +61,22 @@ const Chat = () => {
 	// PARA INICIO SESION
 	const { id } = useParams<{ id?: string }>();
 
-	console.log('idd',id,messages,isConversationStarted)
+	console.log('idd', id, messages, isConversationStarted, activeChatId);
 
 	useEffect(() => {
-		
+		// Cleanup function que se ejecuta cuando el componente se desmonta
+		return () => {
+			setActiveChatId(null);
+		};
+	}, [setActiveChatId]);
+
+	useEffect(() => {
 		if (!id) {
 			setMessages([]);
 			setIsConversationStarted(false);
 			setActiveChatId(null);
-			setIsThinking(false)
+			setIsThinking(false);
 			return;
-		}else{
-			setMessages([]);
-			setIsConversationStarted(false);
 		}
 
 		const parsedId = Number(id);
@@ -89,9 +92,7 @@ const Chat = () => {
 	}, [id]);
 
 	useEffect(() => {
-		if (!isAuthenticated || !activeChatId) return;
-
-		if (messages.length > 0 && isConversationStarted) return;
+		if (!isAuthenticated || !activeChatId || !id) return;
 
 		const fetchHistorial = async () => {
 			try {
@@ -117,7 +118,7 @@ const Chat = () => {
 		};
 
 		fetchHistorial();
-	}, [activeChatId, isAuthenticated, navigate]);
+	}, [activeChatId, isAuthenticated, navigate, id]);
 
 	//----------------------------------------
 	const getHistorial = (messages: MessageChat[]) => {
@@ -254,7 +255,10 @@ const Chat = () => {
 	}, [messages, isThinking]);
 
 	return (
-		<div className='chat-container' key={activeChatId}>
+		<div
+			className='chat-container'
+			key={activeChatId}
+		>
 			<div className='fondo-chat'>
 				<TopBar
 					model
@@ -302,7 +306,7 @@ const Chat = () => {
 
 				<InputChat
 					onSendMessage={!isConversationStarted ? handleStartChat : handleSendMessage}
-					isThinking = {isThinking}
+					isThinking={isThinking}
 					placeholder='Pregunta lo que quieras a tu profe de FLP'
 				/>
 			</div>

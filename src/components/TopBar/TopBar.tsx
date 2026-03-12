@@ -28,7 +28,7 @@ export default function TopBar({ model, color, page }: TopBarProps) {
 	const handlePage = (pageId: string) => {
 		if (pageId === '/chat') {
 			setCurrentPage('/chat');
-			navigate(activeChatId ? `/chat/${pageId}` : '/');
+			navigate(activeChatId ? `/chat/${activeChatId}` : '/chat');
 		} else {
 			setCurrentPage(pageId);
 			navigate(pageId);
