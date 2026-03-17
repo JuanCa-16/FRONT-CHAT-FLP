@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const urlBack =
-	window.location.hostname === 'localhost' ? `http://localhost:8000` : `https://flp-rag-gemini-1.onrender.com`;
+	window.location.hostname === 'localhost' ? `http://localhost:8000` : `https://flp-rag-gemini-750647961146.us-east1.run.app`;
 
 const api = axios.create({
 	baseURL: urlBack,

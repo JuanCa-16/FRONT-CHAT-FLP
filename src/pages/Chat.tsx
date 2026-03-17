@@ -56,7 +56,7 @@ const Chat = () => {
 	const urlBack =
 		window.location.hostname === 'localhost'
 			? `http://localhost:8000/rag/${url}/${currentModel}`
-			: `https://flp-rag-gemini-1.onrender.com/rag/${url}/${currentModel}`;
+			: `https://flp-rag-gemini-750647961146.us-east1.run.app/rag/${url}/${currentModel}`;
 
 	// PARA INICIO SESION
 	const { id } = useParams<{ id?: string }>();
