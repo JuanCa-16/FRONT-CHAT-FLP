@@ -91,6 +91,7 @@ export default function Message({ role, content, documents, calificacion, id }: 
 
 							// Si es mermaid, renderizar con el componente especial
 							if (!inline && language === 'mermaid') {
+								console.log('MERMAAAAID')
 								return <MermaidDiagram chart={String(children).replace(/\n$/, '')} />;
 							}
 

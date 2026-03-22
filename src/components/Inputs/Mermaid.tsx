@@ -32,12 +32,12 @@ mermaid.initialize({
 		fontSize: '16px',
 		fontFamily: 'inherit',
 		
-		nodeBorder: '2px',
+		nodeBorder: '#8d8c8c90',
 		nodeTextColor: '#ffffff',
 	},
 });
 
-let diagramCounter = 0;
+//let diagramCounter = 0;
 
 interface MermaidDiagramProps {
 	chart: string;
@@ -46,33 +46,39 @@ interface MermaidDiagramProps {
 export default function MermaidDiagram({ chart }: MermaidDiagramProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
 	const [error, setError] = useState<string | null>(null);
-	const elementId = useRef(`mermaid-${Date.now()}-${diagramCounter++}`);
+	//const elementId = useRef(`mermaid-${Date.now()}-${diagramCounter++}`);
 
 	useEffect(() => {
-		const renderDiagram = async () => {
-			if (!containerRef.current) return;
+    const renderDiagram = async () => {
+        if (!containerRef.current) return;
+        
+        try {
+            setError(null);
+            // Generar un ID único real para evitar colisiones
+            const id = `mermaid-svg-${Math.random().toString(36).substr(2, 9)}`;
+            
+            // Limpiar contenido previo
+            containerRef.current.innerHTML = '';
 
-			try {
-				setError(null);
-				
-				// Limpiar el contenedor antes de renderizar
-				containerRef.current.innerHTML = '';
+            const { svg } = await mermaid.render(id, chart);
+            
+            if (containerRef.current) {
+                containerRef.current.innerHTML = svg;
+                // Ajuste post-render: eliminar alturas fijas que pone Mermaid
+                const svgElement = containerRef.current.querySelector('svg');
+                if (svgElement) {
+                    svgElement.style.maxWidth = '100%';
+                    svgElement.style.height = 'auto';
+                }
+            }
+        } catch (err) {
+            console.error(err);
+            setError('Error al renderizar');
+        }
+    };
 
-				// Renderizar el diagrama
-				const { svg } = await mermaid.render(elementId.current, chart);
-				
-				// Insertar el SVG en el contenedor
-				if (containerRef.current) {
-					containerRef.current.innerHTML = svg;
-				}
-			} catch (err) {
-				console.error('Error rendering mermaid diagram:', err);
-				setError('Error al renderizar el diagrama');
-			}
-		};
-
-		renderDiagram();
-	}, [chart]);
+    renderDiagram();
+}, [chart]);
 
 	if (error) {
 		return (
