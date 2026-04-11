@@ -47,7 +47,7 @@ const Chat = () => {
 
 	const navigate = useNavigate();
 
-	const { currentModel, isAuthenticated, userHandle, triggerRefresh, setActiveChatId, activeChatId } =
+	const { currentModel, isAuthenticated, triggerRefresh, setActiveChatId, activeChatId, userName } =
 		useAppContext();
 
 	const url = isAuthenticated ? 'chat' : 'responder';
@@ -272,7 +272,7 @@ const Chat = () => {
 							<h1>
 								Hola{' '}
 								<span style={{ color: 'var(--color-primary)' }}>
-									{userHandle}!
+									{userName}!
 								</span>
 							</h1>
 						) : (
