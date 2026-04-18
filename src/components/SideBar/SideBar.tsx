@@ -27,7 +27,7 @@ export default function SideBar() {
 				setChats(data);
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
-					const message = err.response?.data?.detail || 'Error en las credenciales';
+					const message = err.response?.data?.detail || 'Ocurrió un error inesperado al traer tus chats.';
 					toast.error(message);
 				} else {
 					toast.error('Ocurrió un error inesperado al traer tus chats.');

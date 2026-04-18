@@ -106,7 +106,7 @@ const Chat = () => {
 				}
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
-					const message = err.response?.data?.detail || 'Error en las credenciales';
+					const message = err.response?.data?.detail || 'Ocurrió un error inesperado al cargar el chat';
 					toast.error(message);
 					navigate(`/chat`, { replace: true });
 				} else {
