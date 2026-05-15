@@ -78,6 +78,15 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		handleLocationChange();
 	}, [location.pathname]);
 
+	// Wake up Render server on app load
+	useEffect(() => {
+		const urlBack = window.location.hostname === 'localhost'
+			? import.meta.env.VITE_API_URL_DEV
+			: import.meta.env.VITE_API_URL_PROD;
+
+		fetch(`${urlBack}/health`).catch(() => {});
+	}, []);
+
 	const [refreshChats, setRefreshChats] = useState(0);
 
 	const triggerRefresh = () => {
