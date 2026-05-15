@@ -53,10 +53,12 @@ const Chat = () => {
 	const url = isAuthenticated ? 'chat' : 'responder';
 	const authToken = localStorage.getItem('token');
 
-	const urlBack =
+	const apiBaseUrl =
 		window.location.hostname === 'localhost'
-			? `http://localhost:8000/rag/${url}/${currentModel}`
-			: `https://flp-rag-gemini-750647961146.us-east1.run.app/rag/${url}/${currentModel}`;
+			? import.meta.env.VITE_API_URL_DEV
+			: import.meta.env.VITE_API_URL_PROD;
+
+	const urlBack = `${apiBaseUrl}/rag/${url}/${currentModel}`;
 
 	// PARA INICIO SESION
 	const { id } = useParams<{ id?: string }>();
