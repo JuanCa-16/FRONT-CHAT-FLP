@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const urlBack =
-	window.location.hostname === 'localhost' ? `http://localhost:8000` : `https://flp-rag-gemini-750647961146.us-east1.run.app`;
+	window.location.hostname === 'localhost'
+			? import.meta.env.VITE_API_URL_DEV
+			: import.meta.env.VITE_API_URL_PROD;
 
 const api = axios.create({
 	baseURL: urlBack,
