@@ -11,7 +11,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 	const [activeChatId, setActiveChatId] = useState<number | null>(null);
 
-
 	const [currentModel, setCurrentModel] = useState('todo');
 
 	const [currentColor, setCurrentColor] = useState<string>(() => {
@@ -21,6 +20,21 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 	const [currentPage, setCurrentPage] = useState<string>(
 		location.pathname.startsWith('/chat') ? '/chat' : location.pathname,
 	);
+
+	const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+		const saved = localStorage.getItem('theme');
+
+		if (saved === 'light' || saved === 'dark') {
+			return saved;
+		}
+
+		// Sistema por defecto
+		if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) {
+			return 'dark';
+		}
+
+		return 'dark'; // fallback
+	});
 
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
 		return !!localStorage.getItem('token');
@@ -48,7 +62,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 			if (!token) {
 				setActiveChatId(null);
-				setOpen(mobile ? false : true)
+				setOpen(mobile ? false : true);
 			}
 		};
 
@@ -80,9 +94,10 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
 	// Wake up Render server on app load
 	useEffect(() => {
-		const urlBack = window.location.hostname === 'localhost'
-			? import.meta.env.VITE_API_URL_DEV
-			: import.meta.env.VITE_API_URL_PROD;
+		const urlBack =
+			window.location.hostname === 'localhost'
+				? import.meta.env.VITE_API_URL_DEV
+				: import.meta.env.VITE_API_URL_PROD;
 
 		fetch(`${urlBack}/health`).catch(() => {});
 	}, []);
@@ -93,7 +108,17 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 		setRefreshChats((prev) => prev + 1);
 	};
 
-	
+	const toggleTheme = () => {
+		setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+	};
+
+	useEffect(() => {
+		document.documentElement.classList.remove('light', 'dark');
+		document.documentElement.classList.add(theme);
+
+		localStorage.setItem('theme', theme);
+	}, [theme]);
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -112,6 +137,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 				setActiveChatId,
 				open,
 				setOpen,
+				theme,
+				toggleTheme,
 			}}
 		>
 			{children}

@@ -10,6 +10,27 @@
 	--transparentTags: rgba(0, 0, 0, 0.726);
 	--transparentWhite: rgba(255, 255, 255, 0.035);
 	--text: #fff;
+	--fondoMenu: #0000008e;
+	--fondoMenuActive: #0000008e;
+	--fondoMensaje: rgba(255, 255, 255, 0.81);
+	--fondoSidebar: rgba(255, 255, 255, 0);
+	--fondoIcon: rgba(255, 255, 255, 0.264);
+	--opacidadFondoIcon: 0.5;
+}
+
+.light {
+	--gray: #555;
+	--transparent: rgba(255, 255, 255, 0.67);
+	--transparentTags: rgba(255, 255, 255, 0.8);
+	--transparentWhite: rgba(0, 0, 0, 0.05);
+	--text: #000;
+	--fondoMenu: #9a9a9a54;
+	--fondoMenuActive: #c4c3c3a2;
+	--fondoMensaje: rgba(255, 255, 255, 0.81);
+	--fondoSidebar: #ffffffb0;
+	--fondoIcon: #25252543;
+	--opacidadFondoIcon: 1;
+	background-color: #fff;
 }
 
 *,

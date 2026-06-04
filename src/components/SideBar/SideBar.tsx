@@ -1,6 +1,6 @@
 import './SideBar.scss';
 import { useEffect, useState } from 'react';
-import { ExitIcon, MenuIcon, PlusIcon } from '../Icons';
+import { ExitIcon, MenuIcon, MoonIcon, PlusIcon, SunIcon } from '../Icons';
 import SideBarItem from './SideBarItem';
 import { authService } from '../../services/authService';
 import { chatService } from '../../services/chatService';
@@ -27,7 +27,9 @@ export default function SideBar() {
 				setChats(data);
 			} catch (err) {
 				if (axios.isAxiosError(err)) {
-					const message = err.response?.data?.detail || 'Ocurrió un error inesperado al traer tus chats.';
+					const message =
+						err.response?.data?.detail ||
+						'Ocurrió un error inesperado al traer tus chats.';
 					toast.error(message);
 				} else {
 					toast.error('Ocurrió un error inesperado al traer tus chats.');
@@ -112,12 +114,10 @@ export default function SideBar() {
 		}
 	};
 
-
-
-	const { open, setOpen } = useAppContext();
+	const { open, setOpen, theme, toggleTheme } = useAppContext();
 	return (
 		<>
-			{open  && (
+			{open && (
 				<div
 					className='sidebar-overlay'
 					onClick={() => setOpen(false)}
@@ -125,14 +125,23 @@ export default function SideBar() {
 			)}
 			<div className={`sidebar-container ${open ? '' : 'closed'}`}>
 				<div className='menuSuperior'>
-					<button
-						className='btn-default icon-div'
-						onClick={() => {
-							setOpen(!open);
-						}}
-					>
-						<MenuIcon />
-					</button>
+					<div className='acciones'>
+						<button
+							className='btn-default icon-div'
+							onClick={() => {
+								setOpen(!open);
+							}}
+						>
+							<MenuIcon />
+						</button>
+
+						<button
+							className='btn-default icon-div'
+							onClick={toggleTheme}
+						>
+							{theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+						</button>
+					</div>
 
 					{isAuthenticated && (
 						<div

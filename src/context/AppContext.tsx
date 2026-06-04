@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 
 export interface AppContextType {
-
 	currentModel: string;
 	setCurrentModel: (page: string) => void;
 
@@ -17,12 +16,15 @@ export interface AppContextType {
 
 	activeChatId: number | null;
 	setActiveChatId: React.Dispatch<React.SetStateAction<number | null>>;
-	
+
 	refreshChats: number;
 	triggerRefresh: () => void;
 
 	open: boolean;
 	setOpen: (page: boolean) => void;
+
+	theme: 'light' | 'dark';
+	toggleTheme: () => void;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);

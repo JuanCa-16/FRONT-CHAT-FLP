@@ -8,7 +8,7 @@
 	min-height: 100dvh;
 
 	opacity: 0.8;
-	background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+	background: color-mix(in srgb, var(--color-primary) 5%, var(--fondoSidebar));
 	backdrop-filter: blur(37.5px);
 	box-shadow: 10px 0 55px color-mix(in srgb, var(--color-primary) 10%, transparent);
 
@@ -28,24 +28,31 @@
 		gap: 10px;
 		margin-bottom: 10px;
 
-		.btn-default {
+		.acciones {
+			display: flex;
 			width: 100%;
-
-			&.icon-div {
-				height: 30px;
+			align-items: flex-start;
+			justify-content: flex-start;
+			gap: 10px;
+			.btn-default {
 				width: 100%;
-				max-width: 40px;
-				padding: 0;
 
-				color: var(--color-primary);
+				&.icon-div {
+					height: 30px;
+					width: 100%;
+					max-width: 40px;
+					padding: 0;
 
-				&:hover {
-					cursor: pointer;
-				}
+					color: var(--color-primary);
 
-				.icon {
-					height: 100%;
-					padding: 6px;
+					&:hover {
+						cursor: pointer;
+					}
+
+					.icon {
+						height: 100%;
+						padding: 6px;
+					}
 				}
 			}
 		}
@@ -109,13 +116,22 @@
 			.logout-text {
 				white-space: nowrap;
 				opacity: 1;
-				transition: opacity 0.2s ease-in-out,max-width 0.2s ease-in-out;
+				transition:
+					opacity 0.2s ease-in-out,
+					max-width 0.2s ease-in-out;
 			}
 		}
 	}
 
 	&.closed {
 		width: 50px;
+
+		.menuSuperior {
+			.acciones {
+				display: flex;
+				flex-direction: column;
+			}
+		}
 
 		.chats {
 			opacity: 0;
@@ -167,7 +183,7 @@
 		transform: translateX(0); // Abierto por defecto
 		transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 		box-shadow: 10px 0 55px color-mix(in srgb, var(--color-primary) 10%, transparent);
-		background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+		background: color-mix(in srgb, var(--color-primary) 5%, var(--fondoSidebar));
 		opacity: 1;
 		backdrop-filter: blur(120px);
 
